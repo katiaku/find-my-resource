@@ -35,7 +35,7 @@ your repo access and to practice PR'ing with your team _before_ you start
 coding!
 
 - Mark O'Brien - FE Developer: [GitHub](https://github.com/thenotoriousob)
-- Teammate name #2: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
+- Katia Kushnir - FE Developer: [GitHub](https://github.com/katiaku)
 
   ...
 
