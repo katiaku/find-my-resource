@@ -36,6 +36,7 @@ coding!
 
 - Mark O'Brien - FE Developer: [GitHub](https://github.com/thenotoriousob)
 - Katia Kushnir - FE Developer: [GitHub](https://github.com/katiaku)
+- Denys Melnyl - BE Developer: [GitHub](https://github.com/TheDrakl)
 
   ...
 
