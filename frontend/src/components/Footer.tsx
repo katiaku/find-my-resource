@@ -5,7 +5,7 @@ import { FiGithub } from "react-icons/fi"
 
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 flex w-full items-center justify-between gap-4 bg-gray-800 px-6 py-2">
+    <footer className="fixed bottom-0 flex w-full items-center justify-between gap-4 bg-blue-950 px-6 py-2">
       <IconButton
         icon={<FiGithub className="text-4xl" />}
         handleClick={() => {

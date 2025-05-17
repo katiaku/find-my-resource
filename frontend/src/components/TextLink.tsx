@@ -8,7 +8,7 @@ const TextLink = ({ label, handleClick, className }: TextLinkProps) => {
   return (
     <button
       onClick={handleClick}
-      className={`cursor-pointer px-4 py-2 text-gray-100 transition duration-300 hover:text-gray-300 ${className}`}
+      className={`cursor-pointer px-4 py-2 text-gray-100 transition duration-300 hover:text-amber-500 ${className}`}
     >
       <span>{label}</span>
     </button>
