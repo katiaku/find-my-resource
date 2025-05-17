@@ -2,6 +2,7 @@ import TextLink from "./TextLink"
 import IconButton from "./IconButton"
 import { BsFillChatDotsFill } from "react-icons/bs"
 import { FiGithub } from "react-icons/fi"
+import { LINKS } from "../statics"
 
 const Footer = () => {
   return (
@@ -18,10 +19,9 @@ const Footer = () => {
       />
 
       <div className="grid grid-cols-2 gap-2 md:flex">
-        <TextLink label="Mark" href="https://github.com/thenotoriousob" />
-        <TextLink label="Denys" href="https://github.com/TheDrakl" />
-        <TextLink label="Katia" href="https://github.com/katiaku" />
-        <TextLink label="Gisele" href="https://github.com/Gisele-1" />
+        {LINKS.map(({ label, href }) => (
+          <TextLink key={label} label={label} href={href} />
+        ))}
       </div>
 
       <IconButton
