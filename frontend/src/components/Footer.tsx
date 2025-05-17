@@ -18,46 +18,10 @@ const Footer = () => {
       />
 
       <div className="grid grid-cols-2 gap-2 md:flex">
-        <TextLink
-          label="Mark"
-          handleClick={() => {
-            window.open(
-              "https://github.com/thenotoriousob",
-              "_blank",
-              "noopener,noreferrer"
-            )
-          }}
-        />
-        <TextLink
-          label="Denys"
-          handleClick={() => {
-            window.open(
-              "https://github.com/TheDrakl",
-              "_blank",
-              "noopener,noreferrer"
-            )
-          }}
-        />
-        <TextLink
-          label="Katia"
-          handleClick={() => {
-            window.open(
-              "https://github.com/katiaku",
-              "_blank",
-              "noopener,noreferrer"
-            )
-          }}
-        />
-        <TextLink
-          label="Gisele"
-          handleClick={() => {
-            window.open(
-              "https://github.com/Gisele-1",
-              "_blank",
-              "noopener,noreferrer"
-            )
-          }}
-        />
+        <TextLink label="Mark" href="https://github.com/thenotoriousob" />
+        <TextLink label="Denys" href="https://github.com/TheDrakl" />
+        <TextLink label="Katia" href="https://github.com/katiaku" />
+        <TextLink label="Gisele" href="https://github.com/Gisele-1" />
       </div>
 
       <IconButton
