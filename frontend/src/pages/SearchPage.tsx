@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import SearchTag from "../components/SearchTag"
 import type { TagType } from "../types"
+import { API_BASE_URL } from "../api"
 
 const SearchPage = () => {
   const [allTags, setAllTags] = useState<TagType[]>([])
@@ -11,7 +12,7 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchAllTags = async () => {
       try {
-        const response = await fetch("https://seshatbe.up.railway.app/tags")
+        const response = await fetch(`${API_BASE_URL}/tags`)
         const data = await response.json()
         setAllTags(data)
       } catch (error) {
