@@ -3,6 +3,7 @@ import SearchForm from "../components/SearchForm"
 import SearchTag from "../components/SearchTag"
 import type { TagType } from "../types"
 import { API_BASE_URL } from "../api"
+import Loading from "../components/Loading"
 
 const SearchPage = () => {
   const [allTags, setAllTags] = useState<TagType[]>([])
@@ -41,7 +42,7 @@ const SearchPage = () => {
       <div className="mx-4 my-8">
         <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
           {isLoading ? (
-            <p className="text-center text-lg text-blue-950">Loading tags...</p>
+            <Loading />
           ) : (
             allTags.map(({ tag, id }) => (
               <SearchTag
