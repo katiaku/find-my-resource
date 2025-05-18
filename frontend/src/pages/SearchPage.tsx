@@ -1,92 +1,28 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import SearchTag from "../components/SearchTag"
-
-const TAGS = [
-  {
-    tag: "General",
-    id: "1048176100892737618",
-  },
-  {
-    tag: "HTML",
-    id: "1048172063774486548",
-  },
-  {
-    tag: "CSS",
-    id: "1048172108204744765",
-  },
-  {
-    tag: "JavaScript",
-    id: "1048172157009678337",
-  },
-  {
-    tag: "React",
-    id: "1048172208079519764",
-  },
-  {
-    tag: "TypeScript",
-    id: "1048172283451162664",
-  },
-  {
-    tag: "Python",
-    id: "1048172446408245249",
-  },
-  {
-    tag: "Node.js",
-    id: "1048172489555071017",
-  },
-  {
-    tag: "Next.js",
-    id: "1048172720367620157",
-  },
-  {
-    tag: "Vue",
-    id: "1048173016460304416",
-  },
-  {
-    tag: "Git",
-    id: "1048174499905937428",
-  },
-  {
-    tag: "Github",
-    id: "1048174538191544320",
-  },
-  {
-    tag: "JS Frameworks",
-    id: "1050431772405534750",
-  },
-  {
-    tag: "SQL",
-    id: "1050431949119950880",
-  },
-  {
-    tag: "Career",
-    id: "1050431984058499112",
-  },
-  {
-    tag: "UI/UX Design",
-    id: "1185919811176382536",
-  },
-  {
-    tag: "Ruby",
-    id: "1198230083568140350",
-  },
-  {
-    tag: "Golang",
-    id: "1303349202444615730",
-  },
-  {
-    tag: "⚙ DevOps",
-    id: "1346156359862845542",
-  },
-  {
-    tag: "🤖 AI",
-    id: "1352255739208536064",
-  },
-]
+import type { TagType } from "../types"
 
 const SearchPage = () => {
+  const [allTags, setAllTags] = useState<TagType[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
+
+  useEffect(() => {
+    const fetchAllTags = async () => {
+      try {
+        const response = await fetch("https://seshatbe.up.railway.app/tags")
+        const data = await response.json()
+        setAllTags(data)
+      } catch (error) {
+        console.error("Error fetching all tags:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchAllTags()
+  }, [])
 
   const handleSelection = (id: string) => {
     setSelectedTags((prev) =>
@@ -103,14 +39,18 @@ const SearchPage = () => {
 
       <div className="mx-4 my-8">
         <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
-          {TAGS.map(({ tag, id }) => (
-            <SearchTag
-              label={tag}
-              key={id}
-              onClick={() => handleSelection(id)}
-              selected={selectedTags?.includes(id)}
-            />
-          ))}
+          {isLoading ? (
+            <p className="text-center text-lg text-blue-950">Loading tags...</p>
+          ) : (
+            allTags.map(({ tag, id }) => (
+              <SearchTag
+                key={id}
+                label={tag}
+                onClick={() => handleSelection(id)}
+                selected={selectedTags?.includes(id)}
+              />
+            ))
+          )}
         </div>
       </div>
     </div>
