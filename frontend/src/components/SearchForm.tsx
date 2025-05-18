@@ -1,9 +1,6 @@
 import { useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-
-type Inputs = {
-  search: string
-}
+import type {Inputs} from "../types/index"
 
 const SearchForm = () => {
   const { register, handleSubmit, setValue } = useForm<Inputs>()

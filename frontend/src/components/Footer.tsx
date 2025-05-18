@@ -20,7 +20,7 @@ const Footer = () => {
 
       <div className="grid grid-cols-2 gap-2 md:flex">
         {LINKS.map(({ label, href }) => (
-          <TextLink key={label} label={label} href={href} />
+          <TextLink key={label} label={label} href={href} className="px-4" />
         ))}
       </div>
 
