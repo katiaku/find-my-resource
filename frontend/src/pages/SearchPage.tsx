@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import SearchTag from "../components/SearchTag"
 import Results from "../components/Results"
-import type { TagType, ResourcesArray } from "../types"
+import type { ResourcesArray } from "../types"
 // import { API_BASE_URL } from "../api"
 // import Loading from "../components/Loading"
 import { resourceArray } from "../resourceArray"
@@ -15,7 +15,7 @@ const SearchPage = () => {
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
 
   useEffect(() => {
-    // TODO: uncomment when the api is functional
+    // TODO: uncomment the following and necessary variables and imports when the api is functional
     // const fetchAllTags = async () => {
     //   try {
     //     const response = await fetch(`${API_BASE_URL}/tags`)
@@ -75,7 +75,16 @@ const SearchPage = () => {
           {/* )} */}
         </div>
       </div>
-      <Results resources={resources ?? []} />
+
+      <Results
+        resources={
+          selectedTags && selectedTags.length > 0
+            ? resources.filter((resource) =>
+                resource.appliedTags.some((tag) => selectedTags.includes(tag))
+              )
+            : resources
+        }
+      />
     </div>
   )
 }

@@ -32,4 +32,6 @@ export type CardComponentProps = {
   author: string
   url: string
   date: string
+  appliedTagsIds: string[]
+  allTags: TagType[]
 }
