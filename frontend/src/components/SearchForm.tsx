@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-import type {Inputs} from "../types/index"
+import type { Inputs } from "../types/index"
+import Button from "./Button"
 
 const SearchForm = () => {
   const { register, handleSubmit, setValue } = useForm<Inputs>()
@@ -29,19 +30,16 @@ const SearchForm = () => {
           />
         </div>
         <div>
-          <button
+          <Button
             type="submit"
-            className="text-md mb-2 w-full cursor-pointer rounded-lg bg-blue-950 px-5 py-2.5 text-center font-bold tracking-wide text-white hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3 sm:w-auto"
-          >
-            Search
-          </button>
-          <button
-            type="button"
-            className="text-md w-full cursor-pointer rounded-lg bg-amber-500 px-5 py-2.5 text-center font-bold tracking-wide text-white focus:ring-2 focus:ring-blue-950 focus:outline-none sm:w-auto"
+            name="Search"
+            className="mb-2 bg-blue-950 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3"
+          />
+          <Button
+            name="Clear"
+            className="bg-amber-500 hover:bg-amber-400 focus:ring-2 focus:ring-blue-950 focus:outline-none"
             onClick={handleClear}
-          >
-            Clear
-          </button>
+          />
         </div>
       </form>
     </section>

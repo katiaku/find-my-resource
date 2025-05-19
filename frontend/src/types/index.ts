@@ -56,3 +56,10 @@ export type TextLinkProps = {
   href: string
   className?: string
 }
+
+export type ButtonProps = {
+  type?: "button" | "submit"
+  className?: string
+  name: string
+  onClick?: () => void
+}
