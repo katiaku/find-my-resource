@@ -2,33 +2,35 @@ import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import SearchTag from "../components/SearchTag"
 import Results from "../components/Results"
-import type { TagType, ResourcesArray } from "../types"
-import { API_BASE_URL } from "../api"
-import Loading from "../components/Loading"
+import type { ResourcesArray } from "../types"
+// import { API_BASE_URL } from "../api"
+// import Loading from "../components/Loading"
 import { resourceArray } from "../resourceArray"
+import { MOCK_TAGS } from "../mock"
 
 const SearchPage = () => {
-  const [allTags, setAllTags] = useState<TagType[]>([])
+  // const [allTags, setAllTags] = useState<TagType[]>([])
   const [resources, setResources] = useState<ResourcesArray>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  // const [isLoading, setIsLoading] = useState<boolean>(true)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
 
   useEffect(() => {
-    const fetchAllTags = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/tags`)
-        const data = await response.json()
-        setAllTags(data)
-      } catch (error) {
-        console.error("Error fetching all tags:", error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
+    // TODO: uncomment the following and necessary variables and imports when the api is functional
+    // const fetchAllTags = async () => {
+    //   try {
+    //     const response = await fetch(`${API_BASE_URL}/tags`)
+    //     const data = await response.json()
+    //     setAllTags(data)
+    //   } catch (error) {
+    //     console.error("Error fetching all tags:", error)
+    //   } finally {
+    //     setIsLoading(false)
+    //   }
+    // }
 
     const fetchResources = async () => {
       try {
-        // const response = await fetch("https://seshatbe.up.railway.app/resources"
+        // const response = await fetch(`${API_BASE_URL}/resources`"
 
         // const data = await response.json()
 
@@ -40,7 +42,7 @@ const SearchPage = () => {
       }
     }
 
-    fetchAllTags()
+    // fetchAllTags()
     fetchResources()
   }, [])
 
@@ -59,21 +61,30 @@ const SearchPage = () => {
 
       <div className="mx-4 my-8">
         <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
-          {isLoading ? (
+          {/* {isLoading ? (
             <Loading />
-          ) : (
-            allTags.map(({ tag, id }) => (
-              <SearchTag
-                key={id}
-                label={tag}
-                onClick={() => handleSelection(id)}
-                selected={selectedTags?.includes(id)}
-              />
-            ))
-          )}
+          ) : ( */}
+          {MOCK_TAGS.map(({ tag, id }) => (
+            <SearchTag
+              key={id}
+              label={tag}
+              onClick={() => handleSelection(id)}
+              selected={selectedTags?.includes(id)}
+            />
+          ))}
+          {/* )} */}
         </div>
       </div>
-      <Results resources={resources ?? []} />
+
+      <Results
+        resources={
+          selectedTags && selectedTags.length > 0
+            ? resources.filter((resource) =>
+                resource.appliedTags.some((tag) => selectedTags.includes(tag))
+              )
+            : resources
+        }
+      />
     </div>
   )
 }

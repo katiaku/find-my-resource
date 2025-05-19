@@ -1,11 +1,6 @@
-type TextLinkProps = {
-  label: string
-  href: string
-  className?: string
-}
+import type { TextLinkProps } from "../types"
 
 const TextLink = ({ label, href, className }: TextLinkProps) => {
-
   return (
     <a
       href={href}

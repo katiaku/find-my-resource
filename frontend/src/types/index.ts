@@ -1,3 +1,5 @@
+import type { JSX } from "react"
+
 export type Link = {
   label: string
   href: string
@@ -32,4 +34,25 @@ export type CardComponentProps = {
   author: string
   url: string
   date: string
+  appliedTagsIds: string[]
+  allTags: TagType[]
+}
+
+export type IconButtonProps = {
+  icon: JSX.Element
+  className?: string
+  handleClick: () => void
+}
+
+export type SearchTagProps = {
+  label: string
+  onClick: () => void
+  selected?: boolean
+  className?: string
+}
+
+export type TextLinkProps = {
+  label: string
+  href: string
+  className?: string
 }
