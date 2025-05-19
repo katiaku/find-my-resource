@@ -56,3 +56,8 @@ export type TextLinkProps = {
   href: string
   className?: string
 }
+
+export type SearchFormProps = {
+  handleSearch: (search: string) => void
+  handleReset: () => void
+}

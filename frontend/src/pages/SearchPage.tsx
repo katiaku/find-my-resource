@@ -13,6 +13,7 @@ const SearchPage = () => {
   const [resources, setResources] = useState<ResourcesArray>([])
   // const [isLoading, setIsLoading] = useState<boolean>(true)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
 
   useEffect(() => {
     // TODO: uncomment the following and necessary variables and imports when the api is functional
@@ -55,9 +56,30 @@ const SearchPage = () => {
     console.log("Selected tags: ", selectedTags)
   }
 
+  const handleSearch = (title: string) => {
+    setSelectedTitle(title)
+  }
+
+  const handleReset = () => {
+    setResources(resourceArray)
+    setSelectedTitle(null)
+    setSelectedTags(null)
+  }
+
+  const filteredResources = resources.filter((resource) => {
+    const matchesTag =
+      selectedTags && selectedTags.length > 0
+        ? resource.appliedTags.some((tag) => selectedTags.includes(tag))
+        : true
+
+    const matchesTitle = selectedTitle ? resource.name === selectedTitle : true
+
+    return matchesTag && matchesTitle
+  })
+
   return (
     <div className="container mx-auto">
-      <SearchForm />
+      <SearchForm handleSearch={handleSearch} handleReset={handleReset} />
 
       <div className="mx-4 my-8">
         <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
@@ -76,15 +98,7 @@ const SearchPage = () => {
         </div>
       </div>
 
-      <Results
-        resources={
-          selectedTags && selectedTags.length > 0
-            ? resources.filter((resource) =>
-                resource.appliedTags.some((tag) => selectedTags.includes(tag))
-              )
-            : resources
-        }
-      />
+      <Results resources={filteredResources} />
     </div>
   )
 }
