@@ -1,9 +1,4 @@
-type SearchTagProps = {
-  label: string
-  onClick: () => void
-  selected?: boolean
-  className?: string
-}
+import type { SearchTagProps } from "../types"
 
 const SearchTag = ({
   label,

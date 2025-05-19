@@ -1,10 +1,4 @@
-import type { JSX } from "react"
-
-type IconButtonProps = {
-  icon: JSX.Element
-  className?: string
-  handleClick: () => void
-}
+import type { IconButtonProps } from "../types"
 
 const IconButton = ({ icon, handleClick, className }: IconButtonProps) => {
   return (
