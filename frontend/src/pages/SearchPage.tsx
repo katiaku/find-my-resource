@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import SearchTag from "../components/SearchTag"
-import type { TagType } from "../types"
+import Results from "../components/Results"
+import type { TagType, ResourcesArray } from "../types"
 import { API_BASE_URL } from "../api"
 import Loading from "../components/Loading"
+import { resourceArray } from "../resourceArray"
 
 const SearchPage = () => {
   const [allTags, setAllTags] = useState<TagType[]>([])
+  const [resources, setResources] = useState<ResourcesArray>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
 
@@ -23,7 +26,22 @@ const SearchPage = () => {
       }
     }
 
+    const fetchResources = async () => {
+      try {
+        // const response = await fetch("https://seshatbe.up.railway.app/resources"
+
+        // const data = await response.json()
+
+        const data: ResourcesArray = resourceArray
+
+        setResources(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
     fetchAllTags()
+    fetchResources()
   }, [])
 
   const handleSelection = (id: string) => {
@@ -55,6 +73,7 @@ const SearchPage = () => {
           )}
         </div>
       </div>
+      <Results resources={resources ?? []} />
     </div>
   )
 }

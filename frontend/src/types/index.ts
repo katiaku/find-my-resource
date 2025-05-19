@@ -9,16 +9,18 @@ export type TagType = {
 }
 
 export type Resource = {
-  author: string,
-  name: string,
-  appliedTags: string[],
-  url: string,
-  createdAt: string,
+  author: string
+  name: string
+  appliedTags: string[]
+  url: string
+  createdAt: string
   id: string
 }
 
+export type ResourcesArray = Resource[]
+
 export type ResultsProps = {
-    resources: Resource[]
+  resources: Resource[]
 }
 
 export type Inputs = {
@@ -26,8 +28,8 @@ export type Inputs = {
 }
 
 export type CardComponentProps = {
-  name: string,
-  author: string,
+  name: string
+  author: string
   url: string
   date: string
 }
