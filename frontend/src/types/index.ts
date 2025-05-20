@@ -61,3 +61,14 @@ export type SearchFormProps = {
   handleSearch: (search: string) => void
   handleReset: () => void
 }
+
+export type ButtonProps = {
+  type?: "button" | "submit"
+  className?: string
+  name: string
+  onClick?: () => void
+}
+
+export type ErrorProps = {
+  error: string
+}
