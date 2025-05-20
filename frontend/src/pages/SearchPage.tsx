@@ -1,18 +1,17 @@
 import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
-import SearchTag from "../components/SearchTag"
 import Results from "../components/Results"
 import type { ResourcesArray } from "../types"
 // import { API_BASE_URL } from "../api"
-// import Loading from "../components/Loading"
+import Loading from "../components/Loading"
 import { resourceArray } from "../mock/resourceArray"
-import { MOCK_TAGS } from "../mock/tags"
 import Pagination from "../components/Pagination"
+import TagList from "../components/TagList"
 
 const SearchPage = () => {
   // const [allTags, setAllTags] = useState<TagType[]>([])
   const [resources, setResources] = useState<ResourcesArray>([])
-  // const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading] = useState<boolean>(true)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState<number>(1)
@@ -94,24 +93,19 @@ const SearchPage = () => {
     <div className="container mx-auto min-h-screen">
       <SearchForm handleSearch={handleSearch} handleReset={handleReset} />
 
-      <div className="mx-4 my-8">
-        <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
-          {/* {isLoading ? (
-            <Loading />
-          ) : ( */}
-          {MOCK_TAGS.map(({ tag, id }) => (
-            <SearchTag
-              key={id}
-              label={tag}
-              onClick={() => handleSelection(id)}
-              selected={selectedTags?.includes(id)}
-            />
-          ))}
-          {/* )} */}
-        </div>
+      <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <TagList
+            selectedTags={selectedTags}
+            handleSelection={handleSelection}
+          />
+        )}
       </div>
 
       <Results resources={paginatedResources} />
+
       {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
