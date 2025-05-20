@@ -6,7 +6,7 @@ import { LINKS } from "../statics"
 
 const Footer = () => {
   return (
-    <footer className="sticky bottom-0 flex w-full items-center justify-between gap-4 border-t border-t-white bg-blue-950 px-6 py-2">
+    <footer className="sticky bottom-0 flex w-full items-center justify-between gap-4 border-t border-t-white bg-blue-950 px-6 py-2 text-gray-200">
       <IconButton
         icon={<FiGithub className="text-4xl" />}
         handleClick={() => {
@@ -25,6 +25,7 @@ const Footer = () => {
       </div>
 
       <IconButton
+        className="text-gray-200"
         icon={<BsFillChatDotsFill className="text-4xl" />}
         handleClick={() => {
           console.log("Open AI Chat")

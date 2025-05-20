@@ -7,7 +7,7 @@ const SearchTag = ({
   className,
 }: SearchTagProps) => {
   const baseStyle =
-    "cursor-pointer rounded-4xl border px-2 py-1 text-sm font-medium transition-colors"
+    "cursor-pointer rounded-4xl border px-2 py-1 text-sm font-medium duration-300 transition-colors"
   const selectedStyle = "bg-blue-950 text-white border-blue-950"
   const unselectedStyle = "bg-white text-blue-950 border-blue-950"
 

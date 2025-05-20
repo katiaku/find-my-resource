@@ -7,6 +7,7 @@ import type { ResourcesArray } from "../types"
 // import Loading from "../components/Loading"
 import { resourceArray } from "../resourceArray"
 import { MOCK_TAGS } from "../mock"
+import Pagination from "../components/Pagination"
 
 const SearchPage = () => {
   // const [allTags, setAllTags] = useState<TagType[]>([])
@@ -14,6 +15,8 @@ const SearchPage = () => {
   // const [isLoading, setIsLoading] = useState<boolean>(true)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const resourcesPerPage = 8
 
   useEffect(() => {
     // TODO: uncomment the following and necessary variables and imports when the api is functional
@@ -76,8 +79,19 @@ const SearchPage = () => {
     return matchesTag && matchesTitle
   })
 
+  const totalPages = Math.ceil(filteredResources.length / resourcesPerPage)
+
+  const paginatedResources = filteredResources.slice(
+    (currentPage - 1) * resourcesPerPage,
+    currentPage * resourcesPerPage
+  )
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedTags, selectedTitle])
+
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto min-h-screen">
       <SearchForm handleSearch={handleSearch} handleReset={handleReset} />
 
       <div className="mx-4 my-8">
@@ -97,7 +111,14 @@ const SearchPage = () => {
         </div>
       </div>
 
-      <Results resources={filteredResources} />
+      <Results resources={paginatedResources} />
+      {totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      )}
     </div>
   )
 }
