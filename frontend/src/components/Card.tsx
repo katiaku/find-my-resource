@@ -1,6 +1,6 @@
 import TextLink from "./TextLink"
 import type { CardComponentProps } from "../types/index"
-import { formatDate } from "../utils"
+import { formatDate } from "../utils/formatDate"
 
 const Card = ({
   name,
