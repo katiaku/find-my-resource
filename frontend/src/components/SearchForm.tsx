@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-import type { Inputs } from "../types/index"
+import type { Inputs, SearchFormProps } from "../types/index"
 import Button from "./Button"
 import Error from "./Error"
 
@@ -14,14 +14,15 @@ const SearchForm = () => {
     mode: "onSubmit",
     reValidateMode: "onSubmit",
   })
-
+  
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
+    handleSearch(data.search)
   }
 
   const handleClear = () => {
     setValue("search", "")
     document.getElementById("search")?.focus()
+    handleReset()
   }
 
   return (
