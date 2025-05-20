@@ -53,7 +53,6 @@ const SearchPage = () => {
         ? prev.filter((tagId) => tagId !== id)
         : [...(prev || []), id]
     )
-    console.log("Selected tags: ", selectedTags)
   }
 
   const handleSearch = (title: string) => {

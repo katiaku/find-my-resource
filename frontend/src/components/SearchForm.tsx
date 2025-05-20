@@ -4,7 +4,7 @@ import type { Inputs, SearchFormProps } from "../types/index"
 import Button from "./Button"
 import Error from "./Error"
 
-const SearchForm = () => {
+const SearchForm = ({ handleSearch, handleReset }: SearchFormProps) => {
   const {
     register,
     handleSubmit,
