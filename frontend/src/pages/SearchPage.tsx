@@ -11,7 +11,7 @@ import TagList from "../components/TagList"
 const SearchPage = () => {
   // const [allTags, setAllTags] = useState<TagType[]>([])
   const [resources, setResources] = useState<ResourcesArray>([])
-  const [isLoading] = useState<boolean>(true)
+  const [isLoading] = useState<boolean>(false)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState<number>(1)
