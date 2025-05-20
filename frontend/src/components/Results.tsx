@@ -1,6 +1,6 @@
 import Card from "./Card"
 import type { Resource, ResultsProps } from "../types/index"
-import { MOCK_TAGS } from "../mock"
+import { MOCK_TAGS } from "../mock/tags"
 
 const Results = ({ resources }: ResultsProps) => {
   return (

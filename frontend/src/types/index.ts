@@ -72,3 +72,9 @@ export type ButtonProps = {
 export type ErrorProps = {
   error: string
 }
+
+export type PaginationProps = {
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
+}

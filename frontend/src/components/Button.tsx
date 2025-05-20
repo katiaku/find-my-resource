@@ -4,7 +4,7 @@ const Button = ({ type = "button", className, name, onClick }: ButtonProps) => {
   return (
     <button
       type={type}
-      className={`text-md w-full cursor-pointer rounded-lg px-5 py-2.5 text-center font-bold tracking-wide text-white sm:w-auto ${className}`}
+      className={`text-md flex w-full cursor-pointer items-center justify-center rounded-lg px-5 py-2.5 font-bold tracking-wide transition-colors duration-300 sm:w-auto ${className}`}
       onClick={onClick}
     >
       {name}
