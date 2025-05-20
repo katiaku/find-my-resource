@@ -5,8 +5,8 @@ import Results from "../components/Results"
 import type { ResourcesArray } from "../types"
 // import { API_BASE_URL } from "../api"
 // import Loading from "../components/Loading"
-import { resourceArray } from "../resourceArray"
-import { MOCK_TAGS } from "../mock"
+import { resourceArray } from "../mock/resourceArray"
+import { MOCK_TAGS } from "../mock/tags"
 import Pagination from "../components/Pagination"
 
 const SearchPage = () => {
