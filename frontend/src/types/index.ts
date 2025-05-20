@@ -63,3 +63,7 @@ export type ButtonProps = {
   name: string
   onClick?: () => void
 }
+
+export type ErrorProps = {
+  error: string
+}
