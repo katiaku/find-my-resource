@@ -37,7 +37,7 @@ coding!
 - Mark O'Brien - FE Developer: [GitHub](https://github.com/thenotoriousob)
 - Katia Kushnir - FE Developer: [GitHub](https://github.com/katiaku)
 - Denys Melnyk - BE Developer: [GitHub](https://github.com/TheDrakl)
-- Tibam Gisele - Scrum Master
+- Tibam Gisele - Scrum Master:{https://github.com/Gisele-1}
   ...
 
 - Teammate name #n: [GitHub](https://github.com/ghaccountname) / [LinkedIn](https://linkedin.com/in/liaccountname)
