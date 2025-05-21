@@ -16,7 +16,7 @@ const Card = ({
   }
 
   return (
-    <div className="overflow-hidden rounded bg-blue-950 text-white shadow-lg">
+    <div className="overflow-hidden rounded bg-blue-950 text-white shadow-lg flex flex-col align-between">
       <div className="px-6 py-4">
         <h3 className="mb-2 text-xl font-bold">
           <TextLink label={name} href={url} className="underline" />

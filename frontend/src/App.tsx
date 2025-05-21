@@ -1,15 +1,19 @@
 import "./App.css"
-import Header from "./components/Header"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./components/Layout"
 import SearchPage from "./pages/SearchPage"
-import Footer from "./components/Footer"
+import LoginPage from "./pages/LoginPage"
 
 function App() {
   return (
-    <>
-      <Header />
-      <SearchPage />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<SearchPage />} />
+          <Route path="signup" element={<LoginPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
