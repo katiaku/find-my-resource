@@ -147,5 +147,3 @@ We as a whole team would like to thank Chingu platform and community for this op
 Chingu is a platform that helps developers and other people in tech related roles practice in-demand skills and accelerate their learning through collaboration and project-building.
 
 Learn more about Chingu platform at https://www.chingu.io/
-
----
