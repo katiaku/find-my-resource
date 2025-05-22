@@ -30,7 +30,7 @@ const Pagination = ({
           <Button
             name={String(page)}
             onClick={() => typeof page === "number" && onPageChange(page)}
-            className={`max-w-[18px] border text-xs text-blue-950 ${
+            className={`max-w-[18px] border px-5 py-2.5 text-xs text-blue-950 ${
               page === currentPage
                 ? "border-blue-950 bg-blue-950 text-white"
                 : "border-gray-200 bg-gray-200 hover:border-blue-950"

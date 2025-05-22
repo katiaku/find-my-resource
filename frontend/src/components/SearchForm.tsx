@@ -47,11 +47,11 @@ const SearchForm = ({ handleSearch, handleReset }: SearchFormProps) => {
         <Button
           type="submit"
           name="Search"
-          className="mb-2 bg-blue-950 text-white hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3"
+          className="mb-2 bg-blue-950 px-5 py-2.5 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3"
         />
         <Button
           name="Clear"
-          className="mb-2 bg-amber-500 text-white hover:bg-amber-400 focus:ring-2 focus:ring-blue-950 focus:outline-none"
+          className="mb-2 bg-amber-500 px-5 py-2.5 hover:bg-amber-400 focus:ring-2 focus:ring-blue-950 focus:outline-none"
           onClick={handleClear}
         />
       </form>
