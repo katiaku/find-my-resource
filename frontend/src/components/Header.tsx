@@ -1,11 +1,22 @@
+import { useNavigate } from "react-router-dom"
 import Button from "./Button"
 
 const Header = () => {
+  const navigate = useNavigate()
+
+  const handleRedirect = () => {
+    navigate("/dashboard")
+  }
+
   return (
     <>
       <div className="sticky top-0 flex justify-end gap-3 rounded-b-3xl bg-amber-500 p-3 pr-5">
         <Button name="Sign up" className="bg-blue-950 px-2.5 py-1" />
-        <Button name="Dashboard" className="bg-blue-950 px-2.5 py-1" />
+        <Button
+          name="Dashboard"
+          onClick={handleRedirect}
+          className="bg-blue-950 px-2.5 py-1"
+        />
       </div>
       <header className="container mx-auto mt-2">
         <div className="flex flex-col items-center justify-between p-6 sm:flex-row xl:justify-evenly">
