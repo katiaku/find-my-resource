@@ -1,22 +1,24 @@
-import { MOCK_TAGS } from "../mock/tags"
+import type { TagType } from "../types"
 import SearchTag from "./SearchTag"
 
 const TagList = ({
+  allTags,
   selectedTags,
   handleSelection,
 }: {
+  allTags: TagType[]
   selectedTags: string[] | null
   handleSelection: (id: string) => void
 }) => {
   return (
     <div className="mx-4 my-8">
       <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
-        {MOCK_TAGS.map(({ tag, id }) => (
+        {allTags.map(({ tag, external_id }) => (
           <SearchTag
-            key={id}
+            key={external_id}
             label={tag}
-            onClick={() => handleSelection(id)}
-            selected={selectedTags?.includes(id)}
+            onClick={() => handleSelection(external_id)}
+            selected={selectedTags?.includes(external_id)}
           />
         ))}
       </div>

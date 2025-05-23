@@ -1,35 +1,34 @@
 import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import Results from "../components/Results"
-import type { ResourcesArray } from "../types"
-// import { API_BASE_URL } from "../api"
+import type { ResourcesArray, TagType } from "../types"
+import { API_BASE_URL } from "../api"
 import Loading from "../components/Loading"
 import { resourceArray } from "../mock/resourceArray"
 import Pagination from "../components/Pagination"
 import TagList from "../components/TagList"
 
 const SearchPage = () => {
-  // const [allTags, setAllTags] = useState<TagType[]>([])
+  const [allTags, setAllTags] = useState<TagType[]>([])
   const [resources, setResources] = useState<ResourcesArray>([])
-  const [isLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const resourcesPerPage = 8
 
   useEffect(() => {
-    // TODO: uncomment the following and necessary variables and imports when the api is functional
-    // const fetchAllTags = async () => {
-    //   try {
-    //     const response = await fetch(`${API_BASE_URL}/tags`)
-    //     const data = await response.json()
-    //     setAllTags(data)
-    //   } catch (error) {
-    //     console.error("Error fetching all tags:", error)
-    //   } finally {
-    //     setIsLoading(false)
-    //   }
-    // }
+    const fetchAllTags = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/tags`)
+        const data = await response.json()
+        setAllTags(data.results)
+      } catch (error) {
+        console.error("Error fetching all tags:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
 
     const fetchResources = async () => {
       try {
@@ -45,7 +44,7 @@ const SearchPage = () => {
       }
     }
 
-    // fetchAllTags()
+    fetchAllTags()
     fetchResources()
   }, [])
 
@@ -73,14 +72,23 @@ const SearchPage = () => {
         ? resource.appliedTags.some((tag) => selectedTags.includes(tag))
         : true
 
-    const matchesTitle = selectedTitle ? resource.name === selectedTitle : true
+    const matchesTitle = selectedTitle
+      ? resource.name.toLowerCase().includes(selectedTitle.toLowerCase()) ||
+        resource.author.toLowerCase().includes(selectedTitle.toLowerCase())
+      : true
 
     return matchesTag && matchesTitle
   })
 
-  const totalPages = Math.ceil(filteredResources.length / resourcesPerPage)
+  const uniqueFilteredResources = Array.from(
+    new Map(filteredResources.map((item) => [item.id, item])).values()
+  )
 
-  const paginatedResources = filteredResources.slice(
+  const totalPages = Math.ceil(
+    uniqueFilteredResources.length / resourcesPerPage
+  )
+
+  const paginatedResources = uniqueFilteredResources.slice(
     (currentPage - 1) * resourcesPerPage,
     currentPage * resourcesPerPage
   )
@@ -98,6 +106,7 @@ const SearchPage = () => {
           <Loading />
         ) : (
           <TagList
+            allTags={allTags}
             selectedTags={selectedTags}
             handleSelection={handleSelection}
           />

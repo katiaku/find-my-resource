@@ -6,8 +6,9 @@ export type Link = {
 }
 
 export type TagType = {
+  id: number
+  external_id: string
   tag: string
-  id: string
 }
 
 export type Resource = {
