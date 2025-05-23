@@ -14,6 +14,7 @@ const Results = ({ resources }: ResultsProps) => {
         ) : (
           resources.map((resource: Resource) => (
             <Card
+              key={resource.name}
               name={resource.name}
               url={resource.url}
               author={resource.author}

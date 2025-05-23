@@ -28,6 +28,7 @@ const Pagination = ({
           </span>
         ) : (
           <Button
+            key={page}
             name={String(page)}
             onClick={() => typeof page === "number" && onPageChange(page)}
             className={`max-w-[18px] border px-5 py-2.5 text-xs text-blue-950 ${
