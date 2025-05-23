@@ -72,14 +72,23 @@ const SearchPage = () => {
         ? resource.appliedTags.some((tag) => selectedTags.includes(tag))
         : true
 
-    const matchesTitle = selectedTitle ? resource.name === selectedTitle : true
+    const matchesTitle = selectedTitle
+      ? resource.name.toLowerCase().includes(selectedTitle.toLowerCase()) ||
+        resource.author.toLowerCase().includes(selectedTitle.toLowerCase())
+      : true
 
     return matchesTag && matchesTitle
   })
 
-  const totalPages = Math.ceil(filteredResources.length / resourcesPerPage)
+  const uniqueFilteredResources = Array.from(
+    new Map(filteredResources.map((item) => [item.id, item])).values()
+  )
 
-  const paginatedResources = filteredResources.slice(
+  const totalPages = Math.ceil(
+    uniqueFilteredResources.length / resourcesPerPage
+  )
+
+  const paginatedResources = uniqueFilteredResources.slice(
     (currentPage - 1) * resourcesPerPage,
     currentPage * resourcesPerPage
   )
