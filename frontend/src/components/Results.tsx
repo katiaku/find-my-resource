@@ -8,7 +8,8 @@ const Results = ({ resources }: ResultsProps) => {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {resources.length === 0 ? (
           <p className="h-screen text-center text-lg text-blue-950">
-            No resources found. Please choose another tag.
+            No resources found. Please try again with different keywords or
+            tags.
           </p>
         ) : (
           resources.map((resource: Resource) => (
