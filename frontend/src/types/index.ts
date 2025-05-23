@@ -78,3 +78,23 @@ export type PaginationProps = {
   totalPages: number
   onPageChange: (page: number) => void
 }
+
+export type SignupFormInputs = {
+  name: string
+  email: string
+  password: string
+  confirmpassword: string
+}
+
+export type LoginPageProps = {
+  page: string
+  handleSetUserName: (user: string) => void
+}
+
+export type DashboardPageProps = {
+  user: string
+}
+
+export type SignupFormProps = {
+  handleSetUserName: (user: string) => void
+}

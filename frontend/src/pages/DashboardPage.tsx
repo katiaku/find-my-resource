@@ -1,8 +1,8 @@
 import Button from "../components/Button"
 import { useNavigate } from "react-router-dom"
+import type { DashboardPageProps } from "../types/index"
 
-const DashboardPage = () => {
-  const user = "User"
+const DashboardPage = ({ user }: DashboardPageProps) => {
   const navigate = useNavigate()
 
   const handleRedirect = () => {
