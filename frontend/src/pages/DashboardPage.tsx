@@ -1,8 +1,10 @@
 import Button from "../components/Button"
 import { useNavigate } from "react-router-dom"
-import type { DashboardPageProps } from "../types/index"
+import { useUser } from "../context/useUser"
 
-const DashboardPage = ({ user }: DashboardPageProps) => {
+const DashboardPage = () => {
+  const { user } = useUser()
+
   const navigate = useNavigate()
 
   const handleRedirect = () => {
@@ -12,7 +14,7 @@ const DashboardPage = ({ user }: DashboardPageProps) => {
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center gap-4">
       <h1 className="text-base font-semibold tracking-widest text-amber-500 md:text-2xl">
-        Welcome, {user}!
+        Welcome, {user?.username}!
       </h1>
       <Button
         name="Search resources"

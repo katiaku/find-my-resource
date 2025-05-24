@@ -4,14 +4,10 @@ import Layout from "./components/Layout"
 import SearchPage from "./pages/SearchPage"
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
-import { useState } from "react"
+import { useUser } from "./context/useUser"
 
 function App() {
-  const [user, setUser] = useState<string>("")
-
-  const handleSetUserName = (user: string) => {
-    setUser(user)
-  }
+  const { setUser } = useUser()
 
   return (
     <BrowserRouter>
@@ -20,17 +16,13 @@ function App() {
           <Route index element={<SearchPage />} />
           <Route
             path="login"
-            element={
-              <LoginPage page="login" handleSetUserName={handleSetUserName} />
-            }
+            element={<LoginPage page="login" handleSetUserName={setUser} />}
           />
           <Route
             path="signup"
-            element={
-              <LoginPage page="signup" handleSetUserName={handleSetUserName} />
-            }
+            element={<LoginPage page="signup" handleSetUserName={setUser} />}
           />
-          <Route path="dashboard" element={<DashboardPage user={user} />} />
+          <Route path="dashboard" element={<DashboardPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
