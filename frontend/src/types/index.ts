@@ -1,5 +1,11 @@
 import type { JSX } from "react"
 
+export type User = {
+  username: string
+  email: string
+  password: string
+}
+
 export type Link = {
   label: string
   href: string
@@ -89,11 +95,7 @@ export type SignupFormInputs = {
 
 export type LoginPageProps = {
   page: string
-  handleSetUserName: (user: string) => void
-}
-
-export type DashboardPageProps = {
-  user: string
+  handleSetUserName: (user: User) => void
 }
 
 export type SignupFormProps = {
