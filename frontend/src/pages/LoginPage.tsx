@@ -1,13 +1,9 @@
 import LoginForm from "../components/LoginForm"
 import SignupForm from "../components/SignupForm"
-import type { LoginPageProps } from "../types/index"
+import type { LoginPageProps } from "../types"
 
-const LoginPage = ({ page, handleSetUserName }: LoginPageProps) => {
-  return page === "login" ? (
-    <LoginForm />
-  ) : (
-    <SignupForm handleSetUserName={handleSetUserName} />
-  )
+const LoginPage = ({ page }: LoginPageProps) => {
+  return page === "login" ? <LoginForm /> : <SignupForm />
 }
 
 export default LoginPage
