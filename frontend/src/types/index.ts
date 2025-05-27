@@ -64,20 +64,11 @@ export type TextLinkProps = {
   className?: string
 }
 
-export type SearchFormProps = {
-  handleSearch: (search: string) => void
-  handleReset: () => void
-}
-
 export type ButtonProps = {
   type?: "button" | "submit"
   className?: string
   name: string
   onClick?: () => void
-}
-
-export type ErrorProps = {
-  error: string
 }
 
 export type PaginationProps = {
@@ -86,18 +77,31 @@ export type PaginationProps = {
   onPageChange: (page: number) => void
 }
 
+export type SearchFormProps = {
+  handleSearch: (search: string) => void
+  handleReset: () => void
+}
+
+export type ErrorProps = {
+  error: string
+}
+
 export type SignupFormInputs = {
-  name: string
+  username: string
   email: string
   password: string
-  confirmpassword: string
+  confirmPassword: string
+}
+
+export type SignupFormProps = {
+  handleSetUser: (user: User) => void
+}
+
+export type LoginFormInputs = {
+  username: string
+  password: string
 }
 
 export type LoginPageProps = {
   page: string
-  handleSetUserName: (user: User) => void
-}
-
-export type SignupFormProps = {
-  handleSetUserName: (user: string) => void
 }

@@ -1,12 +1,14 @@
 import Button from "../components/Button"
 import { useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-import type { SignupFormInputs, SignupFormProps } from "../types/index"
+import type { SignupFormInputs, User } from "../types/index"
 import { useState } from "react"
 import Error from "../components/Error"
 import { Link, useNavigate } from "react-router"
+import { useUser } from "../context/useUser"
 
-const SignupForm = ({ handleSetUserName }: SignupFormProps) => {
+const SignupForm = () => {
+  const { setUser } = useUser()
   const [loginError, setLoginError] = useState<string>("")
   const {
     register,
@@ -18,11 +20,7 @@ const SignupForm = ({ handleSetUserName }: SignupFormProps) => {
   })
   const navigate = useNavigate()
 
-  const handleSignupClick = async (
-    username: string,
-    email: string,
-    password: string
-  ) => {
+  const handleSignupClick = async (user: User) => {
     const result = await fetch(
       "http://resourcehelper.pythonanywhere.com/api/auth/register/",
       {
@@ -30,11 +28,7 @@ const SignupForm = ({ handleSetUserName }: SignupFormProps) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
-        }),
+        body: JSON.stringify(user),
         credentials: "include",
       }
     )
@@ -43,23 +37,23 @@ const SignupForm = ({ handleSetUserName }: SignupFormProps) => {
 
     console.log(data)
 
-    handleSetUserName(username)
+    setUser(user)
 
     navigate("/dashboard")
   }
 
   const onSubmit: SubmitHandler<SignupFormInputs> = ({
-    name,
+    username,
     email,
     password,
-    confirmpassword,
+    confirmPassword,
   }: SignupFormInputs) => {
-    if (password !== confirmpassword) {
+    if (password !== confirmPassword) {
       setLoginError("Passwords don't match")
       return
     }
 
-    handleSignupClick(name, email, password)
+    handleSignupClick({ username, email, password })
 
     setLoginError("")
   }
@@ -74,13 +68,13 @@ const SignupForm = ({ handleSetUserName }: SignupFormProps) => {
           <div className="flex flex-col gap-2">
             <h2 className="mb-2 text-2xl font-bold text-blue-950">Sign up</h2>
             <input
-              id="name"
-              placeholder="First name"
-              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.name ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
-              {...register("name", {
+              id="username"
+              placeholder="Username"
+              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.username ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
+              {...register("username", {
                 required: "First name is required",
               })}
-              aria-invalid={!!errors.name}
+              aria-invalid={!!errors.username}
             />
             <input
               id="email"
@@ -103,14 +97,14 @@ const SignupForm = ({ handleSetUserName }: SignupFormProps) => {
               aria-invalid={!!errors.password}
             />
             <input
-              id="confirmpassword"
+              id="confirmPassword"
               type="password"
               placeholder="Confirm password"
-              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.confirmpassword ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
-              {...register("confirmpassword", {
+              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.confirmPassword ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
+              {...register("confirmPassword", {
                 required: "Confirm password is required",
               })}
-              aria-invalid={!!errors.confirmpassword}
+              aria-invalid={!!errors.confirmPassword}
             />
             {loginError && <Error error={loginError} />}
           </div>
