@@ -1,3 +1,4 @@
+import { BsGoogle } from "react-icons/bs"
 import { useState } from "react"
 import { useUser } from "../context/useUser"
 import Button from "./Button"
@@ -5,6 +6,7 @@ import { useForm } from "react-hook-form"
 import type { LoginFormInputs } from "../types/index"
 import { useNavigate } from "react-router-dom"
 import Error from "../components/Error"
+import IconButton from "./IconButton"
 
 const LoginForm = () => {
   const { setUser } = useUser()
@@ -33,12 +35,19 @@ const LoginForm = () => {
         }
       )
 
+      const data = await response.json()
+
       if (!response.ok) {
-        setLoginError("Invalid data, please try again")
+        setLoginError("Invalid credentials. Please try again.")
         return
       }
 
-      setUser({ username: user.username, password: user.password, email: "" })
+      setUser({
+        username: user.username,
+        password: user.password,
+        email: data.email || "",
+      })
+
       navigate("/dashboard")
     } catch (error) {
       setLoginError("Something went wrong. Please try again later.")
@@ -47,7 +56,7 @@ const LoginForm = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh_-_333px)] w-full justify-center">
+    <div className="flex h-[calc(100vh_-_273px)] w-full justify-center">
       <div className="mt-6 h-fit rounded-lg border border-blue-950 px-4 py-8">
         <form
           className="m-4 flex w-[350px] flex-col justify-center gap-6 text-center"
@@ -58,7 +67,7 @@ const LoginForm = () => {
             <input
               id="username"
               placeholder="Username"
-              className={`text-md mb-2 w-full rounded-lg border bg-gray-50 p-2.5 ${
+              className={`text-md w-full rounded-lg border bg-gray-50 p-2.5 ${
                 errors.username
                   ? "border-red-400 focus:ring-red-400"
                   : "border-gray-300 focus:ring-amber-500"
@@ -68,11 +77,16 @@ const LoginForm = () => {
               })}
               aria-invalid={!!errors.username}
             />
+            {errors.username && (
+              <span className="self-start text-sm text-red-500">
+                {errors.username.message}
+              </span>
+            )}
             <input
               id="password"
               type="password"
               placeholder="Password"
-              className={`text-md mb-2 w-full rounded-lg border bg-gray-50 p-2.5 ${
+              className={`text-md mt-2 w-full rounded-lg border bg-gray-50 p-2.5 ${
                 errors.password
                   ? "border-red-400 focus:ring-red-400"
                   : "border-gray-300 focus:ring-amber-500"
@@ -82,6 +96,11 @@ const LoginForm = () => {
               })}
               aria-invalid={!!errors.password}
             />
+            {errors.password && (
+              <span className="self-start text-sm text-red-500">
+                {errors.password.message}
+              </span>
+            )}
             {loginError && <Error error={loginError} />}
           </div>
 
@@ -89,6 +108,15 @@ const LoginForm = () => {
             type="submit"
             name="Log in"
             className="mb-2 bg-blue-950 px-5 py-2.5 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none"
+          />
+
+          <div>or</div>
+          <IconButton
+            icon={<BsGoogle className="text-4xl text-blue-950" />}
+            className="w-fit self-center rounded-lg bg-gray-200"
+            handleClick={() => {
+              console.log("Logging with Google")
+            }}
           />
 
           <div className="flex w-full justify-center gap-2 text-sm text-gray-600">
