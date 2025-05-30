@@ -1,7 +1,7 @@
 import Button from "../components/Button"
 import { useForm } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
-import type { SignupFormInputs, User } from "../types/index"
+import type { SignupFormInputs } from "../types/index"
 import { useState } from "react"
 import Error from "../components/Error"
 import { Link, useNavigate } from "react-router"
@@ -20,26 +20,41 @@ const SignupForm = () => {
   })
   const navigate = useNavigate()
 
-  const handleSignupClick = async (user: User) => {
-    const result = await fetch(
-      "http://resourcehelper.pythonanywhere.com/api/auth/register/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-        credentials: "include",
+  const handleSignupClick = async (user: SignupFormInputs) => {
+    try {
+      const result = await fetch(
+        "http://resourcehelper.pythonanywhere.com/api/auth/register/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: user.username,
+            email: user.email,
+            password: user.password,
+          }),
+          credentials: "include",
+        }
+      )
+
+      const data = await result.json()
+
+      if (!result.ok) {
+        setLoginError(
+          (data?.error as string) || "There was an error. Please try again."
+        )
+        return
       }
-    )
 
-    const data = await result.json()
+      setUser(data)
+      console.log("User signed up:", user)
 
-    console.log(data)
-
-    setUser(user)
-
-    navigate("/dashboard")
+      navigate("/dashboard")
+    } catch (error) {
+      console.error("Signup error:", error)
+      alert("There was an error. Please try again.")
+    }
   }
 
   const onSubmit: SubmitHandler<SignupFormInputs> = ({
@@ -53,7 +68,7 @@ const SignupForm = () => {
       return
     }
 
-    handleSignupClick({ username, email, password })
+    handleSignupClick({ username, email, password, confirmPassword })
 
     setLoginError("")
   }
@@ -70,42 +85,62 @@ const SignupForm = () => {
             <input
               id="username"
               placeholder="Username"
-              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.username ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
+              className={`text-md mr-3 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.username ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
               {...register("username", {
                 required: "First name is required",
               })}
               aria-invalid={!!errors.username}
             />
+            {errors.username && (
+              <span className="self-start text-sm text-red-500">
+                {errors.username.message}
+              </span>
+            )}
             <input
               id="email"
               type="email"
               placeholder="Email address"
-              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.email ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
+              className={`text-md mt-2 mr-3 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.email ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
               {...register("email", {
                 required: "Email is required",
               })}
               aria-invalid={!!errors.email}
             />
+            {errors.email && (
+              <span className="self-start text-sm text-red-500">
+                {errors.email.message}
+              </span>
+            )}
             <input
               id="password"
               type="password"
               placeholder="Password"
-              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.password ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
+              className={`text-md mt-2 mr-3 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.password ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
               {...register("password", {
                 required: "Password is required",
               })}
               aria-invalid={!!errors.password}
             />
+            {errors.password && (
+              <span className="self-start text-sm text-red-500">
+                {errors.password.message}
+              </span>
+            )}
             <input
               id="confirmPassword"
               type="password"
               placeholder="Confirm password"
-              className={`text-md mr-3 mb-2 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.confirmPassword ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
+              className={`text-md mt-2 mr-3 w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ${errors.confirmPassword ? "border-red-400 focus:ring-red-400" : "border-gray-300 focus:ring-amber-500"} `}
               {...register("confirmPassword", {
                 required: "Confirm password is required",
               })}
               aria-invalid={!!errors.confirmPassword}
             />
+            {errors.confirmPassword && (
+              <span className="self-start text-sm text-red-500">
+                {errors.confirmPassword.message}
+              </span>
+            )}
             {loginError && <Error error={loginError} />}
           </div>
           <Button
