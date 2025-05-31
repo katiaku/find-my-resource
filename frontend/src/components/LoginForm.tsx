@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom"
 import Error from "../components/Error"
 import IconButton from "./IconButton"
 import { baseUrl } from "../api/api"
+import { toast } from "react-toastify"
 
 const LoginForm = () => {
   const { setUser } = useAuth()
@@ -55,7 +56,7 @@ const LoginForm = () => {
       navigate("/dashboard")
     } catch (error) {
       console.error("Login error:", error)
-      alert("There was an error. Please try again.")
+      toast.error("There was an error. Please try again.")
     }
   }
 

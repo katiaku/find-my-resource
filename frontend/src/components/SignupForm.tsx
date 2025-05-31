@@ -7,6 +7,7 @@ import Error from "../components/Error"
 import { Link, useNavigate } from "react-router"
 import { useAuth } from "../context/useAuth"
 import { baseUrl } from "../api/api"
+import { toast } from "react-toastify"
 
 const SignupForm = () => {
   const { setUser } = useAuth()
@@ -51,7 +52,7 @@ const SignupForm = () => {
       navigate("/dashboard")
     } catch (error) {
       console.error("Signup error:", error)
-      alert("There was an error. Please try again.")
+      toast.error("There was an error. Please try again.")
     }
   }
 

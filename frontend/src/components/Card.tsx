@@ -5,6 +5,7 @@ import { formatDate } from "../utils/formatDate"
 import IconButton from "./IconButton"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContextObject"
+import { toast } from "react-toastify"
 
 const Card = ({
   name,
@@ -28,12 +29,12 @@ const Card = ({
 
   const handleSave = async () => {
     if (!user || !token) {
-      alert("You need to be logged in to save resources.")
+      toast.error("You need to be logged in to save resources.")
       return
     }
 
     if (isSaved) {
-      alert("This resource is already saved.")
+      toast.warn("This resource is already saved.")
       return
     }
 
@@ -54,11 +55,13 @@ const Card = ({
       }
 
       setSavedResources?.((prev) => [...(prev || []), id])
-      alert("Resource saved successfully.")
+      toast.error("Resource saved successfully.")
       console.log("Saved resources:", savedResources)
     } catch (error) {
       console.error("Error saving resource:", error)
-      alert("An error occurred while saving the resource. Please try again.")
+      toast.error(
+        "An error occurred while saving the resource. Please try again."
+      )
     }
   }
 
