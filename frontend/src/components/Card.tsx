@@ -15,8 +15,12 @@ const Card = ({
   appliedTagsIds,
   allTags,
   id,
+  savedResources,
+  setSavedResources,
 }: CardComponentProps) => {
   const { user, token } = useContext(AuthContext)
+
+  const isSaved = savedResources?.includes(id)
 
   const getTagName = (id: string) => {
     const tag = allTags.find((tag) => String(tag.id) === id)
@@ -26,6 +30,11 @@ const Card = ({
   const handleSave = async () => {
     if (!user || !token) {
       alert("You need to be logged in to save resources.")
+      return
+    }
+
+    if (isSaved) {
+      alert("This resource is already saved.")
       return
     }
 
@@ -42,10 +51,12 @@ const Card = ({
         throw new Error("Failed to save the resource.")
       }
 
-      alert("Resource saved successfully!")
+      setSavedResources?.((prev) => [...(prev || []), id])
+      alert("Resource saved successfully.")
+      console.log("Saved resources:", savedResources)
     } catch (error) {
-      console.error("There was an error:", error)
-      alert("Error saving resource.")
+      console.error("Error saving resource:", error)
+      alert("An error occurred while saving the resource. Please try again.")
     }
   }
 
@@ -77,11 +88,13 @@ const Card = ({
             {getTagName(tagId)}
           </span>
         ))}
-        <IconButton
-          icon={<FaRegSave />}
-          handleClick={handleSave}
-          className="ml-auto text-xl"
-        />
+        {!isSaved && (
+          <IconButton
+            icon={<FaRegSave />}
+            handleClick={handleSave}
+            className="ml-auto text-xl"
+          />
+        )}
       </div>
     </div>
   )

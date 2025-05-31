@@ -2,7 +2,11 @@ import Card from "./Card"
 import type { Resource, ResultsProps } from "../types/index"
 import { MOCK_TAGS } from "../mock/tags"
 
-const Results = ({ resources }: ResultsProps) => {
+const Results = ({
+  resources,
+  savedResources,
+  setSavedResources,
+}: ResultsProps) => {
   return (
     <section className="container mx-auto my-5 p-6">
       <div className="grid gap-4 md:grid-cols-2">
@@ -26,6 +30,8 @@ const Results = ({ resources }: ResultsProps) => {
               appliedTagsIds={resource.appliedTags}
               allTags={MOCK_TAGS}
               id={resource.id}
+              savedResources={savedResources}
+              setSavedResources={setSavedResources}
             />
           ))
         )}

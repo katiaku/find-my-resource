@@ -11,6 +11,7 @@ import TagList from "../components/TagList"
 const SearchPage = () => {
   const [allTags, setAllTags] = useState<TagType[]>([])
   const [resources, setResources] = useState<ResourcesArray>([])
+  const [savedResources, setSavedResources] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
@@ -110,7 +111,11 @@ const SearchPage = () => {
         )}
       </div>
 
-      <Results resources={paginatedResources} />
+      <Results
+        resources={paginatedResources}
+        savedResources={savedResources}
+        setSavedResources={setSavedResources}
+      />
 
       {totalPages > 1 && (
         <Pagination
