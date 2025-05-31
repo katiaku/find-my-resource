@@ -25,6 +25,7 @@ const Results = ({ resources }: ResultsProps) => {
               date={resource.createdAt}
               appliedTagsIds={resource.appliedTags}
               allTags={MOCK_TAGS}
+              id={resource.id}
             />
           ))
         )}

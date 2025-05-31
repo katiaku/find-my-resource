@@ -1,15 +1,15 @@
 import { BsGoogle } from "react-icons/bs"
 import { useState } from "react"
-import { useUser } from "../context/useUser"
+import { useAuth } from "../context/useAuth"
 import Button from "./Button"
-import { useForm } from "react-hook-form"
+import { useForm, type SubmitHandler } from "react-hook-form"
 import type { LoginFormInputs } from "../types/index"
 import { useNavigate } from "react-router-dom"
 import Error from "../components/Error"
 import IconButton from "./IconButton"
 
 const LoginForm = () => {
-  const { setUser } = useUser()
+  const { setUser } = useAuth()
   const [loginError, setLoginError] = useState<string>("")
   const {
     register,
@@ -21,7 +21,7 @@ const LoginForm = () => {
   })
   const navigate = useNavigate()
 
-  const onSubmit = async (user: LoginFormInputs) => {
+  const handleLoginClick = async (user: LoginFormInputs) => {
     try {
       const response = await fetch(
         "http://resourcehelper.pythonanywhere.com/api/auth/login/",
@@ -30,7 +30,10 @@ const LoginForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(user),
+          body: JSON.stringify({
+            username: user.username,
+            password: user.password,
+          }),
           credentials: "include",
         }
       )
@@ -38,7 +41,9 @@ const LoginForm = () => {
       const data = await response.json()
 
       if (!response.ok) {
-        setLoginError("Invalid credentials. Please try again.")
+        setLoginError(
+          (data?.error as string) || "Invalid credentials. Please try again."
+        )
         return
       }
 
@@ -47,12 +52,27 @@ const LoginForm = () => {
         password: user.password,
         email: data.email || "",
       })
+      console.log("User logged in:", user)
 
       navigate("/dashboard")
     } catch (error) {
-      setLoginError("Something went wrong. Please try again later.")
       console.error("Login error:", error)
+      alert("There was an error. Please try again.")
     }
+  }
+
+  const onSubmit: SubmitHandler<LoginFormInputs> = ({
+    username,
+    password,
+  }: LoginFormInputs) => {
+    if (!username || !password) {
+      setLoginError("Username and password are required.")
+      return
+    }
+
+    handleLoginClick({ username, password })
+
+    setLoginError("")
   }
 
   return (

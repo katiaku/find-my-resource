@@ -1,12 +1,12 @@
 import type { ReactNode } from "react"
-import { UserProvider } from "./userContext"
+import { AuthProvider } from "./authContext"
 
 interface AppContextProviderProps {
   children: ReactNode
 }
 
 const AppContextProvider = ({ children }: AppContextProviderProps) => {
-  return <UserProvider>{children}</UserProvider>
+  return <AuthProvider>{children}</AuthProvider>
 }
 
 export default AppContextProvider

@@ -43,6 +43,7 @@ export type CardComponentProps = {
   date: string
   appliedTagsIds: string[]
   allTags: TagType[]
+  id: string
 }
 
 export type IconButtonProps = {

@@ -1,9 +1,9 @@
 import Button from "../components/Button"
 import { useNavigate } from "react-router-dom"
-import { useUser } from "../context/useUser"
+import { useAuth } from "../context/useAuth"
 
 const DashboardPage = () => {
-  const { user } = useUser()
+  const { user } = useAuth()
 
   const navigate = useNavigate()
 

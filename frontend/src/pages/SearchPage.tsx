@@ -24,7 +24,7 @@ const SearchPage = () => {
         const data = await response.json()
         setAllTags(data.results)
       } catch (error) {
-        console.error("Error fetching all tags:", error)
+        console.error("Error fetching tags:", error)
       } finally {
         setIsLoading(false)
       }
@@ -32,15 +32,12 @@ const SearchPage = () => {
 
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${API_BASE_URL}/resources`"
-
+        // const response = await fetch(`${API_BASE_URL}/resources`)
         // const data = await response.json()
-
         const data: ResourcesArray = resourceArray
-
         setResources(data)
       } catch (error) {
-        console.log(error)
+        console.log("Error fetching resources:", error)
       }
     }
 
