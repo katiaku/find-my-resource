@@ -23,7 +23,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/resources/saved/`)
+        // const response = await fetch(`${baseUrl}/resources/saved/`)
         // const data = await response.json()
         const data: ResourcesArray = resourceArray
         setResources(data)

@@ -7,6 +7,7 @@ import type { LoginFormInputs } from "../types/index"
 import { useNavigate } from "react-router-dom"
 import Error from "../components/Error"
 import IconButton from "./IconButton"
+import { baseUrl } from "../api/api"
 
 const LoginForm = () => {
   const { setUser } = useAuth()
@@ -23,20 +24,17 @@ const LoginForm = () => {
 
   const handleLoginClick = async (user: LoginFormInputs) => {
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/auth/login/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: user.username,
-            password: user.password,
-          }),
-          // credentials: "include",
-        }
-      )
+      const response = await fetch(`${baseUrl}/auth/login/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          password: user.password,
+        }),
+        // credentials: "include",
+      })
 
       const data = await response.json()
 

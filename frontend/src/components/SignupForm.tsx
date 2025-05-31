@@ -6,6 +6,7 @@ import { useState } from "react"
 import Error from "../components/Error"
 import { Link, useNavigate } from "react-router"
 import { useAuth } from "../context/useAuth"
+import { baseUrl } from "../api/api"
 
 const SignupForm = () => {
   const { setUser } = useAuth()
@@ -22,21 +23,18 @@ const SignupForm = () => {
 
   const handleSignupClick = async (user: SignupFormInputs) => {
     try {
-      const result = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/auth/register/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: user.username,
-            email: user.email,
-            password: user.password,
-          }),
-          // credentials: "include",
-        }
-      )
+      const result = await fetch(`${baseUrl}/auth/register/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          email: user.email,
+          password: user.password,
+        }),
+        // credentials: "include",
+      })
 
       const data = await result.json()
 

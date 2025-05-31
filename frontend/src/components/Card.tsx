@@ -39,7 +39,7 @@ const Card = ({
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/resource/save/${id}/`,
+        `${process.env.VITE_API_BASE_URL}/resource/save/${id}/`,
         {
           method: "POST",
           headers: {
