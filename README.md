@@ -27,15 +27,17 @@ It makes learning easier by giving users the ability to search for resource base
 
 ## Features
 
-
+- Search resources by author or full resource name or word / part of word
+- Filter resources by tag(s)
+- Create user profile and access user dashboard
+- Create collection of resources (only for registered users)
+- Rate resources (only for registered users)
 
 ---
 
 ## How it works
 
-Easily find resources that would be of interest to you by searching through the Chingu resources by typing
-the full title of the resource if you know exactly what you are looking for, or you can choose to search
-for resource for topics that interest you by using the available tags.
+Easily find resources that would be of interest to you by searching through the Chingu resources by typing the full title / part of the title of the resource or author if you know exactly what you are looking for, or you can choose to search for resource for topics that interest you by using the available tags.
 
 The data is paginated so that the resources are displayed in manageable chunks.
 
@@ -43,7 +45,7 @@ The data is paginated so that the resources are displayed in manageable chunks.
 
 ## Technologies & Dependencies used
 
-- **React:** for all the logic, many React features were used: components, useState, useEffect, functions...
+- **React:** for all the logic, many React features were used: components, useState, useEffect, context...
 
 - **Typescript:** for implementing types and catching bugs earlier.
 
@@ -55,12 +57,13 @@ The data is paginated so that the resources are displayed in manageable chunks.
 
 **dependencies:**
 
-- "dependencies": {
 - "@tailwindcss/vite": "^4.1.6",
 - "react": "^19.1.0",
 - "react-dom": "^19.1.0",
 - "react-hook-form": "^7.56.4",
 - "react-icons": "^5.5.0",
+- "react-router-dom": "^7.6.0",
+- "react-toastify": "^11.0.5",
 - "tailwindcss": "^4.1.6"
 
 **devDependencies:**
