@@ -2,7 +2,6 @@ import { FaRegSave } from "react-icons/fa"
 import TextLink from "./TextLink"
 import type { CardComponentProps } from "../types/index"
 import { formatDate } from "../utils/formatDate"
-import { API_BASE_URL } from "../api"
 import IconButton from "./IconButton"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContextObject"
@@ -39,13 +38,16 @@ const Card = ({
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/resource/save/${id}/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}/resource/save/${id}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Failed to save the resource.")

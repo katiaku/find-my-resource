@@ -23,7 +23,7 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${API_BASE_URL}/resources/saved/`)
+        // const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/resources/saved/`)
         // const data = await response.json()
         const data: ResourcesArray = resourceArray
         setResources(data)
@@ -51,11 +51,13 @@ const DashboardPage = () => {
       <h1 className="text-base font-semibold tracking-widest text-amber-500 md:text-2xl">
         Welcome, {user?.username}!
       </h1>
-      <Button
-        name="Search resources"
-        onClick={handleRedirect}
-        className="mb-2 bg-blue-950 px-5 py-2.5 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3"
-      />
+      <div className="flex w-full justify-center px-6">
+        <Button
+          name="Search resources"
+          onClick={handleRedirect}
+          className="mb-2 bg-blue-950 px-5 py-2.5 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3"
+        />
+      </div>
       <Results resources={paginatedResources} />
 
       {totalPages > 1 && (

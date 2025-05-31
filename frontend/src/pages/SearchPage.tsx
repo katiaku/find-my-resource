@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import SearchForm from "../components/SearchForm"
 import Results from "../components/Results"
 import type { ResourcesArray, TagType } from "../types"
-import { API_BASE_URL } from "../api"
 import Loading from "../components/Loading"
 import { resourceArray } from "../mock/resourceArray"
 import Pagination from "../components/Pagination"
@@ -21,7 +20,9 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchAllTags = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/tags`)
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/tags`
+        )
         const data = await response.json()
         setAllTags(data.results)
       } catch (error) {
@@ -33,7 +34,7 @@ const SearchPage = () => {
 
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${API_BASE_URL}/resources`)
+        // const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/resources`)
         // const data = await response.json()
         const data: ResourcesArray = resourceArray
         setResources(data)

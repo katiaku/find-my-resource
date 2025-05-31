@@ -24,7 +24,7 @@ const LoginForm = () => {
   const handleLoginClick = async (user: LoginFormInputs) => {
     try {
       const response = await fetch(
-        "http://resourcehelper.pythonanywhere.com/api/auth/login/",
+        `${process.env.REACT_APP_API_BASE_URL}/auth/login/`,
         {
           method: "POST",
           headers: {
@@ -34,7 +34,7 @@ const LoginForm = () => {
             username: user.username,
             password: user.password,
           }),
-          credentials: "include",
+          // credentials: "include",
         }
       )
 

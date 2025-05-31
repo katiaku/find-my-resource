@@ -23,7 +23,7 @@ const SignupForm = () => {
   const handleSignupClick = async (user: SignupFormInputs) => {
     try {
       const result = await fetch(
-        "http://resourcehelper.pythonanywhere.com/api/auth/register/",
+        `${process.env.REACT_APP_API_BASE_URL}/auth/register/`,
         {
           method: "POST",
           headers: {
@@ -34,7 +34,7 @@ const SignupForm = () => {
             email: user.email,
             password: user.password,
           }),
-          credentials: "include",
+          // credentials: "include",
         }
       )
 
