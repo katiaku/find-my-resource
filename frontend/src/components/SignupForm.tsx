@@ -5,11 +5,11 @@ import type { SignupFormInputs } from "../types/index"
 import { useState } from "react"
 import Error from "../components/Error"
 import { Link, useNavigate } from "react-router"
-import { useUser } from "../context/useUser"
+import { useAuth } from "../context/useAuth"
 
 const SignupForm = () => {
-  const { setUser } = useUser()
-  const [loginError, setLoginError] = useState<string>("")
+  const { setUser } = useAuth()
+  const [signupError, setSignupError] = useState<string>("")
   const {
     register,
     handleSubmit,
@@ -41,13 +41,13 @@ const SignupForm = () => {
       const data = await result.json()
 
       if (!result.ok) {
-        setLoginError(
+        setSignupError(
           (data?.error as string) || "There was an error. Please try again."
         )
         return
       }
 
-      setUser(data)
+      setUser(data.user)
       console.log("User signed up:", user)
 
       navigate("/dashboard")
@@ -64,13 +64,13 @@ const SignupForm = () => {
     confirmPassword,
   }: SignupFormInputs) => {
     if (password !== confirmPassword) {
-      setLoginError("Passwords don't match")
+      setSignupError("Passwords don't match")
       return
     }
 
     handleSignupClick({ username, email, password, confirmPassword })
 
-    setLoginError("")
+    setSignupError("")
   }
 
   return (
@@ -141,7 +141,7 @@ const SignupForm = () => {
                 {errors.confirmPassword.message}
               </span>
             )}
-            {loginError && <Error error={loginError} />}
+            {signupError && <Error error={signupError} />}
           </div>
           <Button
             type="submit"

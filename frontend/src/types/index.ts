@@ -30,19 +30,24 @@ export type ResourcesArray = Resource[]
 
 export type ResultsProps = {
   resources: Resource[]
+  savedResources?: string[]
+  setSavedResources?: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 export type Inputs = {
   search: string
 }
 
-export type CardComponentProps = {
+export interface CardComponentProps {
   name: string
   author: string
   url: string
   date: string
   appliedTagsIds: string[]
   allTags: TagType[]
+  id: string
+  savedResources?: string[]
+  setSavedResources?: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 export type IconButtonProps = {

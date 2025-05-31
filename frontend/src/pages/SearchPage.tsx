@@ -11,6 +11,7 @@ import TagList from "../components/TagList"
 const SearchPage = () => {
   const [allTags, setAllTags] = useState<TagType[]>([])
   const [resources, setResources] = useState<ResourcesArray>([])
+  const [savedResources, setSavedResources] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
@@ -24,7 +25,7 @@ const SearchPage = () => {
         const data = await response.json()
         setAllTags(data.results)
       } catch (error) {
-        console.error("Error fetching all tags:", error)
+        console.error("Error fetching tags:", error)
       } finally {
         setIsLoading(false)
       }
@@ -32,15 +33,12 @@ const SearchPage = () => {
 
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${API_BASE_URL}/resources`"
-
+        // const response = await fetch(`${API_BASE_URL}/resources`)
         // const data = await response.json()
-
         const data: ResourcesArray = resourceArray
-
         setResources(data)
       } catch (error) {
-        console.log(error)
+        console.log("Error fetching resources:", error)
       }
     }
 
@@ -113,7 +111,11 @@ const SearchPage = () => {
         )}
       </div>
 
-      <Results resources={paginatedResources} />
+      <Results
+        resources={paginatedResources}
+        savedResources={savedResources}
+        setSavedResources={setSavedResources}
+      />
 
       {totalPages > 1 && (
         <Pagination
