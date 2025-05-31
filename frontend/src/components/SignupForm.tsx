@@ -6,6 +6,8 @@ import { useState } from "react"
 import Error from "../components/Error"
 import { Link, useNavigate } from "react-router"
 import { useAuth } from "../context/useAuth"
+import { baseUrl } from "../api/api"
+import { toast } from "react-toastify"
 
 const SignupForm = () => {
   const { setUser } = useAuth()
@@ -22,21 +24,18 @@ const SignupForm = () => {
 
   const handleSignupClick = async (user: SignupFormInputs) => {
     try {
-      const result = await fetch(
-        "http://resourcehelper.pythonanywhere.com/api/auth/register/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: user.username,
-            email: user.email,
-            password: user.password,
-          }),
-          credentials: "include",
-        }
-      )
+      const result = await fetch(`${baseUrl}/auth/register/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          email: user.email,
+          password: user.password,
+        }),
+        // credentials: "include",
+      })
 
       const data = await result.json()
 
@@ -53,7 +52,7 @@ const SignupForm = () => {
       navigate("/dashboard")
     } catch (error) {
       console.error("Signup error:", error)
-      alert("There was an error. Please try again.")
+      toast.error("There was an error. Please try again.")
     }
   }
 

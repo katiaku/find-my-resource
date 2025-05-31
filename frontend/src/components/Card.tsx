@@ -2,10 +2,10 @@ import { FaRegSave } from "react-icons/fa"
 import TextLink from "./TextLink"
 import type { CardComponentProps } from "../types/index"
 import { formatDate } from "../utils/formatDate"
-import { API_BASE_URL } from "../api"
 import IconButton from "./IconButton"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContextObject"
+import { toast } from "react-toastify"
 
 const Card = ({
   name,
@@ -29,34 +29,39 @@ const Card = ({
 
   const handleSave = async () => {
     if (!user || !token) {
-      alert("You need to be logged in to save resources.")
+      toast.error("You need to be logged in to save resources.")
       return
     }
 
     if (isSaved) {
-      alert("This resource is already saved.")
+      toast.warn("This resource is already saved.")
       return
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/resource/save/${id}/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(
+        `${process.env.VITE_API_BASE_URL}/resource/save/${id}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
       if (!response.ok) {
         throw new Error("Failed to save the resource.")
       }
 
       setSavedResources?.((prev) => [...(prev || []), id])
-      alert("Resource saved successfully.")
+      toast.error("Resource saved successfully.")
       console.log("Saved resources:", savedResources)
     } catch (error) {
       console.error("Error saving resource:", error)
-      alert("An error occurred while saving the resource. Please try again.")
+      toast.error(
+        "An error occurred while saving the resource. Please try again."
+      )
     }
   }
 

@@ -7,6 +7,8 @@ import type { LoginFormInputs } from "../types/index"
 import { useNavigate } from "react-router-dom"
 import Error from "../components/Error"
 import IconButton from "./IconButton"
+import { baseUrl } from "../api/api"
+import { toast } from "react-toastify"
 
 const LoginForm = () => {
   const { setUser } = useAuth()
@@ -23,20 +25,17 @@ const LoginForm = () => {
 
   const handleLoginClick = async (user: LoginFormInputs) => {
     try {
-      const response = await fetch(
-        "http://resourcehelper.pythonanywhere.com/api/auth/login/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username: user.username,
-            password: user.password,
-          }),
-          credentials: "include",
-        }
-      )
+      const response = await fetch(`${baseUrl}/auth/login/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: user.username,
+          password: user.password,
+        }),
+        // credentials: "include",
+      })
 
       const data = await response.json()
 
@@ -57,7 +56,7 @@ const LoginForm = () => {
       navigate("/dashboard")
     } catch (error) {
       console.error("Login error:", error)
-      alert("There was an error. Please try again.")
+      toast.error("There was an error. Please try again.")
     }
   }
 
