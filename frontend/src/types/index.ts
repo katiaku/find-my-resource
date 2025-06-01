@@ -103,7 +103,7 @@ export type SignupFormProps = {
 }
 
 export type LoginFormInputs = {
-  username: string
+  email: string
   password: string
 }
 

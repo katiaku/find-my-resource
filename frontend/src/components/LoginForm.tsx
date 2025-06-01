@@ -31,10 +31,10 @@ const LoginForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: user.username,
+          email: user.email,
           password: user.password,
         }),
-        // credentials: "include",
+        credentials: "include",
       })
 
       const data = await response.json()
@@ -47,9 +47,9 @@ const LoginForm = () => {
       }
 
       setUser({
-        username: user.username,
+        email: user.email,
         password: user.password,
-        email: data.email || "",
+        username: data.username || "",
       })
       console.log("User logged in:", user)
 
@@ -61,15 +61,15 @@ const LoginForm = () => {
   }
 
   const onSubmit: SubmitHandler<LoginFormInputs> = ({
-    username,
+    email,
     password,
   }: LoginFormInputs) => {
-    if (!username || !password) {
-      setLoginError("Username and password are required.")
+    if (!email || !password) {
+      setLoginError("Email and password are required.")
       return
     }
 
-    handleLoginClick({ username, password })
+    handleLoginClick({ email, password })
 
     setLoginError("")
   }
@@ -84,21 +84,21 @@ const LoginForm = () => {
           <div className="flex flex-col gap-2">
             <h2 className="mb-2 text-2xl font-bold text-blue-950">Log in</h2>
             <input
-              id="username"
-              placeholder="Username"
+              id="email"
+              placeholder="Email"
               className={`text-md w-full rounded-lg border bg-gray-50 p-2.5 ${
-                errors.username
+                errors.email
                   ? "border-red-400 focus:ring-red-400"
                   : "border-gray-300 focus:ring-amber-500"
               }`}
-              {...register("username", {
-                required: "Username is required",
+              {...register("email", {
+                required: "Email is required",
               })}
-              aria-invalid={!!errors.username}
+              aria-invalid={!!errors.email}
             />
-            {errors.username && (
+            {errors.email && (
               <span className="self-start text-sm text-red-500">
-                {errors.username.message}
+                {errors.email.message}
               </span>
             )}
             <input
