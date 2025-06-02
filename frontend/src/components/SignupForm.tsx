@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router"
 import { useAuth } from "../context/useAuth"
 import { baseUrl } from "../api/api"
 import { toast } from "react-toastify"
+import GoogleAuthButton from "./GoogleAuthButton"
 
 const SignupForm = () => {
   const { setUser } = useAuth()
@@ -147,6 +148,10 @@ const SignupForm = () => {
             name="Sign up"
             className="mb-2 bg-blue-950 px-5 py-2.5 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none"
           />
+
+          <div>or</div>
+
+          <GoogleAuthButton />
 
           <div className="flex w-full justify-center gap-2 text-sm text-gray-600">
             <p>Have an account?</p>
