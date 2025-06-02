@@ -1,4 +1,3 @@
-import { BsGoogle } from "react-icons/bs"
 import { useState } from "react"
 import { useAuth } from "../context/useAuth"
 import Button from "./Button"
@@ -6,13 +5,15 @@ import { useForm, type SubmitHandler } from "react-hook-form"
 import type { LoginFormInputs } from "../types/index"
 import { useNavigate } from "react-router-dom"
 import Error from "../components/Error"
-import IconButton from "./IconButton"
 import { baseUrl } from "../api/api"
 import { toast } from "react-toastify"
+import GoogleAuthButton from "./GoogleAuthButton"
 
 const LoginForm = () => {
   const { setUser } = useAuth()
   const [loginError, setLoginError] = useState<string>("")
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
@@ -21,7 +22,6 @@ const LoginForm = () => {
     mode: "onSubmit",
     reValidateMode: "onSubmit",
   })
-  const navigate = useNavigate()
 
   const handleLoginClick = async (user: LoginFormInputs) => {
     try {
@@ -70,7 +70,6 @@ const LoginForm = () => {
     }
 
     handleLoginClick({ email, password })
-
     setLoginError("")
   }
 
@@ -130,13 +129,8 @@ const LoginForm = () => {
           />
 
           <div>or</div>
-          <IconButton
-            icon={<BsGoogle className="text-4xl text-blue-950" />}
-            className="w-fit self-center rounded-lg bg-gray-200"
-            handleClick={() => {
-              console.log("Logging with Google")
-            }}
-          />
+
+          <GoogleAuthButton />
 
           <div className="flex w-full justify-center gap-2 text-sm text-gray-600">
             <p>Don’t have an account?</p>
