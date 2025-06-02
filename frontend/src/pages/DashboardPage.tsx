@@ -49,7 +49,7 @@ const DashboardPage = () => {
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center gap-4">
       <h1 className="text-base font-semibold tracking-widest text-amber-500 md:text-2xl">
-        Welcome, {user?.username}!
+        Welcome, {user?.email}!
       </h1>
       <div className="flex w-full justify-center px-6">
         <Button

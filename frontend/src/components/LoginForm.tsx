@@ -34,7 +34,7 @@ const LoginForm = () => {
           email: user.email,
           password: user.password,
         }),
-        credentials: "include",
+        // credentials: "include",
       })
 
       const data = await response.json()
