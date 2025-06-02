@@ -72,7 +72,7 @@ export type TextLinkProps = {
 export type ButtonProps = {
   type?: "button" | "submit"
   className?: string
-  name: string
+  name: string | JSX.Element
   onClick?: () => void
 }
 

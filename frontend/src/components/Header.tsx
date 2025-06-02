@@ -1,18 +1,41 @@
+import { AiOutlineUser } from "react-icons/ai"
+import { AiOutlineUserAdd } from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
 import Button from "./Button"
+import { FiLogIn, FiLogOut } from "react-icons/fi"
 
 const Header = () => {
   const navigate = useNavigate()
 
   const links = [
-    { name: "Sign up", path: "/signup" },
-    { name: "Log in", path: "/login" },
-    { name: "Dashboard", path: "/dashboard" },
+    { name: <AiOutlineUserAdd size={20} />, path: "/signup" },
+    { name: <FiLogIn size={20} />, path: "/login" },
+    { name: <AiOutlineUser size={20} />, path: "/dashboard" },
   ]
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch(
+        "https://resourcehelper.pythonanywhere.com/api/logout/",
+        {
+          method: "POST",
+          credentials: "include",
+        }
+      )
+
+      if (response.ok) {
+        navigate("/")
+      } else {
+        console.error("There was an error. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error logging out:", error)
+    }
+  }
 
   return (
     <>
-      <div className="sticky top-0 flex justify-end gap-3 rounded-b-3xl bg-amber-500 p-3 pr-5">
+      <div className="sticky top-0 flex gap-3 rounded-b-3xl bg-amber-500 p-3 pr-5 md:justify-end">
         {links.map(({ name, path }) => (
           <Button
             key={path}
@@ -21,6 +44,11 @@ const Header = () => {
             className="bg-blue-950 px-2.5 py-1"
           />
         ))}
+        <Button
+          name={<FiLogOut size={20} />}
+          onClick={handleLogout}
+          className="bg-blue-950 px-2.5 py-1"
+        />
       </div>
       <header className="container mx-auto mt-2">
         <div className="flex flex-col items-center justify-between p-6 sm:flex-row xl:justify-evenly">
