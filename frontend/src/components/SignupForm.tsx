@@ -34,7 +34,7 @@ const SignupForm = () => {
           email: user.email,
           password: user.password,
         }),
-        // credentials: "include",
+        credentials: "include",
       })
 
       const data = await result.json()
