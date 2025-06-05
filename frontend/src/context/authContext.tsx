@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const clearUser = () => {
     setUserState(null)
-    fetch(`${baseUrl}/logout/`, {
+    fetch(`${baseUrl}/auth/logout/`, {
       method: "POST",
       credentials: "include",
     }).catch(console.error)
