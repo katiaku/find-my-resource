@@ -16,7 +16,7 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       const response = await fetch(
-        "https://resourcehelper.pythonanywhere.com/api/logout/",
+        "https://resourcehelper.pythonanywhere.com/api/auth/logout/",
         {
           method: "POST",
           credentials: "include",
