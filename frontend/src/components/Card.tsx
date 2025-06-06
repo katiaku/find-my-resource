@@ -18,7 +18,7 @@ const Card = ({
   savedResources,
   setSavedResources,
 }: CardComponentProps) => {
-  const { user, token } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const isSaved = savedResources?.includes(id)
 
@@ -28,7 +28,7 @@ const Card = ({
   }
 
   const handleSave = async () => {
-    if (!user || !token) {
+    if (!user) {
       toast.error("You need to be logged in to save resources.")
       return
     }
@@ -45,8 +45,8 @@ const Card = ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         }
       )
 

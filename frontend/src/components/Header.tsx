@@ -3,9 +3,11 @@ import { AiOutlineUserAdd } from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
 import Button from "./Button"
 import { FiLogIn, FiLogOut } from "react-icons/fi"
+import { useAuth } from "../context/useAuth"
 
 const Header = () => {
   const navigate = useNavigate()
+  const { clearUser } = useAuth()
 
   const links = [
     { name: <AiOutlineUserAdd size={20} />, path: "/signup" },
@@ -15,19 +17,8 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(
-        "https://resourcehelper.pythonanywhere.com/api/logout/",
-        {
-          method: "POST",
-          credentials: "include",
-        }
-      )
-
-      if (response.ok) {
-        navigate("/")
-      } else {
-        console.error("There was an error. Please try again.")
-      }
+      clearUser()
+      navigate("/")
     } catch (error) {
       console.error("Error logging out:", error)
     }
