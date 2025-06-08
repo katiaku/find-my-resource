@@ -7,6 +7,7 @@ import IconButton from "./IconButton"
 import { useContext } from "react"
 import { AuthContext } from "../context/authContextObject"
 import { toast } from "react-toastify"
+import { useLocation } from "react-router-dom"
 
 const Card = ({
   name,
@@ -22,6 +23,10 @@ const Card = ({
   const { user } = useContext(AuthContext)
 
   const isSaved = savedResources?.includes(id)
+
+  const location = useLocation()
+
+  const isDashboardPage = location.pathname === "/dashboard"
 
   const getTagName = (id: string) => {
     const tag = allTags.find((tag) => String(tag.id) === id)
@@ -128,22 +133,25 @@ const Card = ({
             {getTagName(tagId)}
           </span>
         ))}
-        <div className="flex w-full items-center justify-end gap-2">
-          {!isSaved && (
-            <IconButton
-              icon={<FaRegSave />}
-              handleClick={handleSave}
-              className="text-xl"
-            />
-          )}
-          {isSaved && (
-            <IconButton
-              icon={<MdDeleteForever />}
-              handleClick={handleUnsave}
-              className="text-2xl"
-            />
-          )}
-        </div>
+
+        {isDashboardPage && (
+          <div className="flex w-full items-center justify-end gap-2">
+            {!isSaved && (
+              <IconButton
+                icon={<FaRegSave />}
+                handleClick={handleSave}
+                className="text-xl"
+              />
+            )}
+            {isSaved && (
+              <IconButton
+                icon={<MdDeleteForever />}
+                handleClick={handleUnsave}
+                className="text-2xl"
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
