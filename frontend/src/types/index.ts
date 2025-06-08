@@ -24,6 +24,7 @@ export type Resource = {
   url: string
   createdAt: string
   id: string
+  avg_rating?: number
 }
 
 export type ResourcesArray = Resource[]
@@ -48,6 +49,7 @@ export interface CardComponentProps {
   id: string
   savedResources?: string[]
   setSavedResources?: React.Dispatch<React.SetStateAction<string[]>>
+  avgRating?: number
 }
 
 export type IconButtonProps = {
