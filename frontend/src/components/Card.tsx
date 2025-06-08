@@ -1,3 +1,4 @@
+import { MdDeleteForever } from "react-icons/md"
 import { FaRegSave } from "react-icons/fa"
 import TextLink from "./TextLink"
 import type { CardComponentProps } from "../types/index"
@@ -65,6 +66,40 @@ const Card = ({
     }
   }
 
+  const handleUnsave = async () => {
+    if (!user) {
+      toast.error("You need to be logged in to unsave resources.")
+      return
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.VITE_API_BASE_URL}/resource/unsave/${id}/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      )
+
+      if (!response.ok) {
+        throw new Error("Failed to unsave the resource.")
+      }
+
+      setSavedResources?.((prev) =>
+        (prev || []).filter((savedId) => savedId !== id)
+      )
+      toast.success("Resource unsaved successfully.")
+    } catch (error) {
+      console.error("Error unsaving resource:", error)
+      toast.error(
+        "An error occurred while unsaving the resource. Please try again."
+      )
+    }
+  }
+
   return (
     <div className="align-between flex flex-col overflow-hidden rounded bg-blue-950 text-white shadow-lg">
       <div className="px-6 py-4">
@@ -93,13 +128,22 @@ const Card = ({
             {getTagName(tagId)}
           </span>
         ))}
-        {!isSaved && (
-          <IconButton
-            icon={<FaRegSave />}
-            handleClick={handleSave}
-            className="ml-auto text-xl"
-          />
-        )}
+        <div className="flex w-full items-center justify-end gap-2">
+          {!isSaved && (
+            <IconButton
+              icon={<FaRegSave />}
+              handleClick={handleSave}
+              className="text-xl"
+            />
+          )}
+          {isSaved && (
+            <IconButton
+              icon={<MdDeleteForever />}
+              handleClick={handleUnsave}
+              className="text-2xl"
+            />
+          )}
+        </div>
       </div>
     </div>
   )
