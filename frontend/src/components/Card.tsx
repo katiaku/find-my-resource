@@ -4,10 +4,11 @@ import TextLink from "./TextLink"
 import type { CardComponentProps } from "../types/index"
 import { formatDate } from "../utils/formatDate"
 import IconButton from "./IconButton"
-import { useContext } from "react"
-import { AuthContext } from "../context/authContextObject"
+import { useState } from "react"
 import { toast } from "react-toastify"
 import { useLocation } from "react-router-dom"
+import { GiRoundStar } from "react-icons/gi"
+import { baseUrl } from "../api/api"
 
 const Card = ({
   name,
@@ -19,14 +20,15 @@ const Card = ({
   id,
   savedResources,
   setSavedResources,
+  avgRating,
 }: CardComponentProps) => {
-  const { user } = useContext(AuthContext)
-
   const isSaved = savedResources?.includes(id)
 
   const location = useLocation()
 
   const isDashboardPage = location.pathname === "/dashboard"
+
+  const [rating, setRating] = useState<number>(0)
 
   const getTagName = (id: string) => {
     const tag = allTags.find((tag) => String(tag.id) === id)
@@ -34,27 +36,19 @@ const Card = ({
   }
 
   const handleSave = async () => {
-    if (!user) {
-      toast.error("You need to be logged in to save resources.")
-      return
-    }
-
     if (isSaved) {
       toast.warn("This resource is already saved.")
       return
     }
 
     try {
-      const response = await fetch(
-        `${process.env.VITE_API_BASE_URL}/resource/save/${id}/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      )
+      const response = await fetch(`${baseUrl}/resource/save/${id}/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
 
       if (!response.ok) {
         throw new Error("Failed to save the resource.")
@@ -65,29 +59,19 @@ const Card = ({
       console.log("Saved resources:", savedResources)
     } catch (error) {
       console.error("Error saving resource:", error)
-      toast.error(
-        "An error occurred while saving the resource. Please try again."
-      )
+      toast.error("There was an error. Please try again.")
     }
   }
 
   const handleUnsave = async () => {
-    if (!user) {
-      toast.error("You need to be logged in to unsave resources.")
-      return
-    }
-
     try {
-      const response = await fetch(
-        `${process.env.VITE_API_BASE_URL}/resource/unsave/${id}/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      )
+      const response = await fetch(`${baseUrl}/resource/unsave/${id}/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
 
       if (!response.ok) {
         throw new Error("Failed to unsave the resource.")
@@ -99,9 +83,29 @@ const Card = ({
       toast.success("Resource unsaved successfully.")
     } catch (error) {
       console.error("Error unsaving resource:", error)
-      toast.error(
-        "An error occurred while unsaving the resource. Please try again."
-      )
+      toast.error("There was an error. Please try again.")
+    }
+  }
+
+  const handleRateResource = async (rating: number) => {
+    try {
+      const response = await fetch(`${baseUrl}/resources/rate/${id}/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ rating }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Failed to rate the resource.")
+      }
+
+      setRating(rating)
+    } catch (error) {
+      console.error("Error rating resource:", error)
+      toast.error("There was an error. Please try again.")
     }
   }
 
@@ -124,6 +128,26 @@ const Card = ({
           </p>
         </div>
       </div>
+
+      <div className="mb-1 flex items-center gap-2 px-6">
+        {avgRating && avgRating > 0 ? <p>Average rating: {avgRating}</p> : null}
+      </div>
+
+      {isDashboardPage && (
+        <div className="flex items-center gap-2 px-6">
+          <p>Rate resource:</p>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <GiRoundStar
+              key={star}
+              className={`cursor-pointer text-xl ${
+                star <= rating ? "text-yellow-500" : "text-gray-300"
+              }`}
+              onClick={() => handleRateResource(star)}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="flex w-full items-center gap-2 px-6 py-4">
         {appliedTagsIds.map((tagId: string) => (
           <span

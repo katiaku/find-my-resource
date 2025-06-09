@@ -32,6 +32,7 @@ const Results = ({
               id={resource.id}
               savedResources={savedResources}
               setSavedResources={setSavedResources}
+              avgRating={resource.avg_rating}
             />
           ))
         )}
