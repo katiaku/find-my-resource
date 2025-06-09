@@ -1,15 +1,35 @@
 import "./App.css"
-import Header from "./components/Header"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Layout from "./components/Layout"
 import SearchPage from "./pages/SearchPage"
-import Footer from "./components/Footer"
+import LoginPage from "./pages/LoginPage"
+import DashboardPage from "./pages/DashboardPage"
+import { ToastContainer } from "react-toastify"
 
 function App() {
   return (
-    <>
-      <Header />
-      <SearchPage />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<SearchPage />} />
+          <Route path="login" element={<LoginPage page="login" />} />
+          <Route path="signup" element={<LoginPage page="signup" />} />
+          <Route path="dashboard" element={<DashboardPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
