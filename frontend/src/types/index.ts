@@ -56,6 +56,7 @@ export type IconButtonProps = {
   icon: JSX.Element
   className?: string
   handleClick: () => void
+  children?: JSX.Element
 }
 
 export type SearchTagProps = {
