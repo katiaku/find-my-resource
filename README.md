@@ -23,14 +23,16 @@
 
 Find My Resource is a fully responsive web app to help users navigate the many helpful resources that have been added to the Chingu platform.
 
-It makes learning easier by giving users the ability to search for resource based on title or by topics that interest them.
+It makes learning easier by giving users the ability to search for resource based on title, author or by topics that interest them.
 
 ---
 
 ## Features
 
-- Search resources by author or full resource name or word / part of word
+- Search resources by author or full title or word / part of word
 - Filter resources by tag(s)
+- Resource cards show title, author, created date, rating and tags
+- Print out the list of resources
 - Create user profile and access user dashboard
 - Create collection of resources (only for registered users)
 - Rate resources (only for registered users)
