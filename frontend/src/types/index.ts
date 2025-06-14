@@ -12,8 +12,8 @@ export type Link = {
 }
 
 export type TagType = {
-  id: number
-  external_id: string
+  id: string
+  external_id?: string
   tag: string
 }
 
@@ -34,7 +34,7 @@ export type ResultsProps = {
   resources: Resource[]
   savedResources?: string[]
   setSavedResources?: React.Dispatch<React.SetStateAction<string[]>>
-  allTags: any
+  allTags: TagType[]
 }
 
 export type Inputs = {
