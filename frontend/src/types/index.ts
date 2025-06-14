@@ -18,6 +18,7 @@ export type TagType = {
 }
 
 export type Resource = {
+  tags: string[]
   author: string
   name: string
   appliedTags: string[]
@@ -33,6 +34,7 @@ export type ResultsProps = {
   resources: Resource[]
   savedResources?: string[]
   setSavedResources?: React.Dispatch<React.SetStateAction<string[]>>
+  allTags: any
 }
 
 export type Inputs = {

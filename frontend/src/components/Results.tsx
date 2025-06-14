@@ -1,7 +1,6 @@
 import { BsPrinter } from "react-icons/bs"
 import Card from "./Card"
-import type { Resource, ResultsProps } from "../types/index"
-import { MOCK_TAGS } from "../mock/tags"
+import type { ResultsProps } from "../types/index"
 import IconButton from "./IconButton"
 import { useReactToPrint } from "react-to-print"
 import { useRef } from "react"
@@ -10,6 +9,7 @@ const Results = ({
   resources,
   savedResources,
   setSavedResources,
+  allTags,
 }: ResultsProps) => {
   const contentRef = useRef<HTMLDivElement>(null)
   const reactToPrintFn = useReactToPrint({
@@ -42,21 +42,23 @@ const Results = ({
             </p>
           </div>
         ) : (
-          resources.map((resource: Resource) => (
-            <Card
-              key={resource.id}
-              name={resource.name}
-              url={resource.url}
-              author={resource.author}
-              date={resource.createdAt}
-              appliedTagsIds={resource.appliedTags}
-              allTags={MOCK_TAGS}
-              id={resource.id}
-              savedResources={savedResources}
-              setSavedResources={setSavedResources}
-              avgRating={resource.avg_rating}
-            />
-          ))
+          resources.map((resource: any) => {
+            return (
+              <Card
+                key={resource.id}
+                name={resource.name}
+                url={resource.url}
+                author={resource.author}
+                date={resource.created_at}
+                appliedTagsIds={resource.tags}
+                allTags={allTags}
+                id={resource.id}
+                savedResources={savedResources}
+                setSavedResources={setSavedResources}
+                avgRating={resource.avg_rating}
+              />
+            )
+          })
         )}
       </div>
     </section>

@@ -5,7 +5,7 @@ import Results from "../components/Results"
 import Pagination from "../components/Pagination"
 import { useEffect, useState } from "react"
 import type { ResourcesArray } from "../types"
-import { resourceArray } from "../mock/resourceArray"
+import { baseUrl } from "../api/api"
 
 const DashboardPage = () => {
   const { user } = useAuth()
@@ -23,9 +23,10 @@ const DashboardPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${baseUrl}/resources/saved/`)
-        // const data = await response.json()
-        const data: ResourcesArray = resourceArray
+        const response = await fetch(`${baseUrl}/resources/saved/`, {
+          credentials: "include",
+        })
+        const data = await response.json()
         setResources(data)
       } catch (error) {
         console.log("Error fetching resources:", error)
@@ -58,7 +59,7 @@ const DashboardPage = () => {
           className="mb-2 bg-blue-950 px-5 py-2.5 hover:bg-blue-800 focus:ring-2 focus:ring-amber-500 focus:outline-none sm:mr-3"
         />
       </div>
-      <Results resources={paginatedResources} />
+      <Results resources={paginatedResources} allTags={[]} />
 
       {totalPages > 1 && (
         <Pagination

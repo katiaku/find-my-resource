@@ -3,7 +3,6 @@ import SearchForm from "../components/SearchForm"
 import Results from "../components/Results"
 import type { ResourcesArray, TagType } from "../types"
 import Loading from "../components/Loading"
-import { resourceArray } from "../mock/resourceArray"
 import Pagination from "../components/Pagination"
 import TagList from "../components/TagList"
 import { baseUrl } from "../api/api"
@@ -13,7 +12,7 @@ const SearchPage = () => {
   const [resources, setResources] = useState<ResourcesArray>([])
   const [savedResources, setSavedResources] = useState<string[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [selectedTags, setSelectedTags] = useState<string[] | null>(null)
+  const [selectedTags, setSelectedTags] = useState<string[] | null>([])
   const [selectedTitle, setSelectedTitle] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState<number>(1)
   const resourcesPerPage = 8
@@ -33,10 +32,9 @@ const SearchPage = () => {
 
     const fetchResources = async () => {
       try {
-        // const response = await fetch(`${baseUrl}/resources`)
-        // const data = await response.json()
-        const data: ResourcesArray = resourceArray
-        setResources(data)
+        const response = await fetch(`${baseUrl}/resources`)
+        const data = await response.json()
+        setResources(data.results)
       } catch (error) {
         console.log("Error fetching resources:", error)
       }
@@ -46,11 +44,11 @@ const SearchPage = () => {
     fetchResources()
   }, [])
 
-  const handleSelection = (id: string) => {
+  const handleSelection = (tagName: string) => {
     setSelectedTags((prev) =>
-      prev?.includes(id)
-        ? prev.filter((tagId) => tagId !== id)
-        : [...(prev || []), id]
+      prev?.includes(tagName)
+        ? prev.filter((name) => name !== tagName)
+        : [...(prev || []), tagName]
     )
   }
 
@@ -59,7 +57,6 @@ const SearchPage = () => {
   }
 
   const handleReset = () => {
-    setResources(resourceArray)
     setSelectedTitle(null)
     setSelectedTags(null)
   }
@@ -67,7 +64,7 @@ const SearchPage = () => {
   const filteredResources = resources.filter((resource) => {
     const matchesTag =
       selectedTags && selectedTags.length > 0
-        ? resource.appliedTags.some((tag) => selectedTags.includes(tag))
+        ? resource.tags.some((tag: string) => selectedTags.includes(tag))
         : true
 
     const matchesTitle = selectedTitle
@@ -115,6 +112,7 @@ const SearchPage = () => {
         resources={paginatedResources}
         savedResources={savedResources}
         setSavedResources={setSavedResources}
+        allTags={allTags}
       />
 
       {totalPages > 1 && (
