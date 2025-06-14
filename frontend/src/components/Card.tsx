@@ -56,7 +56,6 @@ const Card = ({
 
       setSavedResources?.((prev) => [...(prev || []), id])
       toast.error("Resource saved successfully.")
-      console.log("Saved resources:", savedResources)
     } catch (error) {
       console.error("Error saving resource:", error)
       toast.error("There was an error. Please try again.")

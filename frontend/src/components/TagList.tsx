@@ -13,12 +13,12 @@ const TagList = ({
   return (
     <div className="mx-4 my-8">
       <div className="mx-auto flex flex-wrap justify-center gap-2 lg:w-[80%]">
-        {allTags.map(({ tag, external_id }) => (
+        {allTags.map(({ tag, id }) => (
           <SearchTag
-            key={external_id}
+            key={id}
             label={tag}
-            onClick={() => handleSelection(external_id)}
-            selected={selectedTags?.includes(external_id)}
+            onClick={() => handleSelection(tag)}
+            selected={selectedTags?.includes(tag)}
           />
         ))}
       </div>

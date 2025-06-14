@@ -5,6 +5,8 @@ import SearchPage from "./pages/SearchPage"
 import LoginPage from "./pages/LoginPage"
 import DashboardPage from "./pages/DashboardPage"
 import { ToastContainer } from "react-toastify"
+import ProtectedRoute from "./components/ProtectedRoute"
+import PublicRoute from "./components/PublicRoute"
 
 function App() {
   return (
@@ -24,9 +26,30 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<SearchPage />} />
-          <Route path="login" element={<LoginPage page="login" />} />
-          <Route path="signup" element={<LoginPage page="signup" />} />
-          <Route path="dashboard" element={<DashboardPage />} />
+          <Route
+            path="login"
+            element={
+              <PublicRoute>
+                <LoginPage page="login" />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="signup"
+            element={
+              <PublicRoute>
+                <LoginPage page="signup" />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="dashboard"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

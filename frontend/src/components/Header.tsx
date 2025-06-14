@@ -1,19 +1,15 @@
 import { AiOutlineUser } from "react-icons/ai"
 import { AiOutlineUserAdd } from "react-icons/ai"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Button from "./Button"
 import { FiLogIn, FiLogOut } from "react-icons/fi"
 import { useAuth } from "../context/useAuth"
 
 const Header = () => {
   const navigate = useNavigate()
-  const { clearUser } = useAuth()
-
-  const links = [
-    { name: <AiOutlineUserAdd size={20} />, path: "/signup" },
-    { name: <FiLogIn size={20} />, path: "/login" },
-    { name: <AiOutlineUser size={20} />, path: "/dashboard" },
-  ]
+  const { user, clearUser } = useAuth()
+  const location = useLocation()
+  const isDashboardPage = location.pathname === "/dashboard"
 
   const handleLogout = async () => {
     try {
@@ -27,20 +23,45 @@ const Header = () => {
   return (
     <>
       <div className="sticky top-0 flex gap-3 rounded-b-3xl bg-amber-500 p-3 pr-5 md:justify-end">
-        {links.map(({ name, path }) => (
+        {!user && !isDashboardPage && (
+          <>
+            <Button
+              name={<AiOutlineUserAdd size={20} />}
+              onClick={() => navigate("/signup")}
+              className="bg-blue-950 px-2.5 py-1"
+            />
+            <Button
+              name={<FiLogIn size={20} />}
+              onClick={() => navigate("/login")}
+              className="bg-blue-950 px-2.5 py-1"
+            />
+          </>
+        )}
+
+        {user && !isDashboardPage && (
+          <>
+            <Button
+              name={<AiOutlineUser size={20} />}
+              onClick={() => navigate("/dashboard")}
+              className="bg-blue-950 px-2.5 py-1"
+            />
+            <Button
+              name={<FiLogOut size={20} />}
+              onClick={handleLogout}
+              className="bg-blue-950 px-2.5 py-1"
+            />
+          </>
+        )}
+
+        {user && isDashboardPage && (
           <Button
-            key={path}
-            name={name}
-            onClick={() => navigate(path)}
+            name={<FiLogOut size={20} />}
+            onClick={handleLogout}
             className="bg-blue-950 px-2.5 py-1"
           />
-        ))}
-        <Button
-          name={<FiLogOut size={20} />}
-          onClick={handleLogout}
-          className="bg-blue-950 px-2.5 py-1"
-        />
+        )}
       </div>
+
       <header className="container mx-auto mt-2">
         <div className="flex flex-col items-center justify-between p-6 sm:flex-row xl:justify-evenly">
           <img

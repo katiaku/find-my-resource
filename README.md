@@ -2,6 +2,8 @@
 
 # 🔗 [Live preview]
 
+# 🔗 [Find My Resource API](https://resourcehelper.pythonanywhere.com/api/resources/)
+
 ---
 
 ## Table of Contents
@@ -21,14 +23,16 @@
 
 Find My Resource is a fully responsive web app to help users navigate the many helpful resources that have been added to the Chingu platform.
 
-It makes learning easier by giving users the ability to search for resource based on title or by topics that interest them.
+It makes learning easier by giving users the ability to search for resource based on title, author or by topics that interest them.
 
 ---
 
 ## Features
 
-- Search resources by author or full resource name or word / part of word
+- Search resources by author or full title or word / part of word
 - Filter resources by tag(s)
+- Resource cards show title, author, created date, rating and tags
+- Print out the list of resources
 - Create user profile and access user dashboard
 - Create collection of resources (only for registered users)
 - Rate resources (only for registered users)
@@ -57,30 +61,32 @@ The data is paginated so that the resources are displayed in manageable chunks.
 
 **dependencies:**
 
-- "@tailwindcss/vite": "^4.1.6",
-- "react": "^19.1.0",
-- "react-dom": "^19.1.0",
-- "react-hook-form": "^7.56.4",
-- "react-icons": "^5.5.0",
-- "react-router-dom": "^7.6.0",
-- "react-toastify": "^11.0.5",
-- "tailwindcss": "^4.1.6"
+- react
+- react-dom
+- react-hook-form
+- react-icons
+- react-router-dom
+- react-toastify
+- react-to-print
+- tailwindcss
+- @tailwindcss/vite
+
 
 **devDependencies:**
 
-- "@eslint/js": "^9.25.0",
-- "@types/react": "^19.1.2",
-- "@types/react-dom": "^19.1.2",
-- "@vitejs/plugin-react": "^4.4.1",
-- "eslint": "^9.25.0",
-- "eslint-plugin-react-hooks": "^5.2.0",
-- "eslint-plugin-react-refresh": "^0.4.19",
-- "globals": "^16.0.0",
-- "prettier": "^3.5.3",
-- "prettier-plugin-tailwindcss": "^0.6.11",
-- "typescript": "~5.8.3",
-- "typescript-eslint": "^8.30.1",
-- "vite": "^6.3.5"
+- @eslint/js
+- @types/react
+- @types/react-dom
+- @vitejs/plugin-react
+- eslint
+- eslint-plugin-react-hooks
+- eslint-plugin-react-refresh
+- globals
+- prettier
+- prettier-plugin-tailwindcss
+- typescript
+- typescript-eslint
+- vite
 
 ---
 
