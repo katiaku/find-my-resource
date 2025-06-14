@@ -1,6 +1,6 @@
 # Find My Resource
 
-# 🔗 [Live preview]
+# 🔗 [Live preview](https://find-my-resource.vercel.app/)
 
 # 🔗 [Find My Resource API](https://resourcehelper.pythonanywhere.com/api/resources/)
 
